@@ -172,10 +172,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>a,2,0</des>
         <des>z,1,5</des>
         <des>z,2,3</des>
-        <des>b,4,0</des>
-        <des>a,5,0</des>
-        <des>b,6,0</des>
-        <des>b,6,3</des>
+        <des>b,3,0</des>
+        <des>a,4,0</des>
+        <des>b,5,0</des>
+        <des>b,5,3</des>
         <cons>1,1,0</cons>
         <cons>5,1,5</cons>
         <cons>3,2,0</cons>
@@ -230,6 +230,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>b,4,0</des>
         <des>y,4,0</des>
         <des>a,5,3</des>
+        <cons>6,0,2</cons>
+        <cons>3,2,1</cons>
+        <cons>3,3,4</cons>
     </partida>
     <partida>
         <nivel>Intermedio</nivel>
@@ -316,7 +319,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>z,2,5</des>
         <des>a,3,0</des>
         <des>a,4,1</des>
-        <des>y,4,4</des>
+        <des>y,4,5</des>
         <des>a,5,0</des>
         <des>y,5,1</des>
         <des>b,6,0</des>
@@ -424,7 +427,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>z,5,1</des>
         <des>y,5,4</des>
         <des>z,5,5</des>
-        <cons>7,0,2</cons>
+        <cons>7,0,3</cons>
         <cons>3,1,6</cons>
         <cons>3,5,4</cons>
         <cons>5,6,1</cons>
@@ -464,7 +467,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>b,1,3</des>
         <des>z,1,0</des>
         <des>y,1,3</des>
-        <des>y,2,3</des>
+        <des>y,2,4</des>
         <des>b,3,0</des>
         <des>y,3,0</des>
         <des>z,3,6</des>
@@ -545,7 +548,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>b,3,2</des>
         <des>b,3,5</des>
         <des>y,3,0</des>
-        <des>y,3,4</des>
+        <des>z,3,4</des>
         <des>a,4,1</des>
         <des>b,4,3</des>
         <des>z,4,7</des>
@@ -558,11 +561,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>a,6,3</des>
         <cons>1,0,0</cons>
         <cons>4,0,2</cons>
-        <cons>1,1,6</cons>
+        <cons>1,1,7</cons>
         <cons>4,3,1</cons>
         <cons>2,4,4</cons>
         <cons>3,5,1</cons>
-        <cons>4,4,7</cons>
+        <cons>4,5,7</cons>
         <cons>8,6,1</cons>
         <cons>7,6,6</cons>
         <cons>8,7,4</cons>
@@ -657,7 +660,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>a,7,2</des>
         <des>b,7,5</des>
         <des>a,7,6</des>
-        <cons>8,2,7</cons>
+        <cons>8,1,7</cons>
         <cons>2,3,0</cons>
         <cons>7,3,1</cons>
         <cons>6,4,1</cons>
@@ -773,7 +776,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <cons>2,5,1</cons>
         <cons>4,6,6</cons>
         <cons>6,6,7</cons>
-        <cons>6,6,2</cons>
+        <cons>6,7,2</cons>
     </partida>
     <partida>
         <nivel>Difícil</nivel>
@@ -801,7 +804,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>z,6,2</des>
         <des>b,6,6</des>
         <cons>6,0,1</cons>
-        <cons>8,2,6</cons>
+        <cons>8,2,7</cons>
         <cons>7,3,2</cons>
         <cons>5,3,3</cons>
         <cons>3,5,0</cons>
@@ -873,10 +876,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <cons>7,0,4</cons>
         <cons>3,1,1</cons>
         <cons>6,1,3</cons>
-        <cons>7,2,1</cons>
+        <cons>7,2,0</cons>
         <cons>9,2,4</cons>
         <cons>4,3,6</cons>
-        <cons>8,4,1</cons>
+        <cons>8,4,0</cons>
         <cons>3,4,7</cons>
         <cons>2,6,4</cons>
         <cons>6,6,8</cons>
@@ -955,7 +958,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>z,5,7</des>
         <des>z,6,0</des>
         <des>b,6,4</des>
-        <des>z,6,6</des>
+        <des>z,6,7</des>
         <des>y,7,0</des>
         <des>y,7,1</des>
         <des>a,7,3</des>
@@ -993,14 +996,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>y,3,0</des>
         <des>a,3,4</des>
         <des>b,3,5</des>
-        <des>a,4,0</des>
+        <des>y,4,0</des>
         <des>b,4,1</des>
         <des>a,5,1</des>
         <des>b,5,2</des>
         <des>b,5,6</des>
         <des>z,5,4</des>
         <des>b,7,3</des>
-        <des>b,7,5</des>
+        <des>b,7,4</des>
         <des>b,8,0</des>
         <cons>3,1,0</cons>
         <cons>3,2,1</cons>
@@ -1032,7 +1035,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>z,2,4</des>
         <des>a,3,2</des>
         <des>z,3,5</des>
-        <des>b,4,2</des>
+        <des>a,4,2</des>
         <des>y,4,3</des>
         <des>a,5,2</des>
         <des>b,5,4</des>
@@ -1080,7 +1083,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>b,3,7</des>
         <des>a,4,0</des>
         <des>b,4,2</des>
-        <des>b,4,4</des>
+        <des>a,4,4</des>
         <des>y,4,4</des>
         <des>y,4,5</des>
         <des>b,5,1</des>
@@ -1145,6 +1148,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <des>z,7,5</des>
         <des>a,8,2</des>
         <des>a,8,6</des>
+        <des>y,3,0</des>
+        <des>y,6,0</des>
         <cons>3,0,1</cons>
         <cons>2,1,2</cons>
         <cons>8,1,5</cons>
@@ -1238,7 +1243,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <cons>1,0,6</cons>
         <cons>7,1,3</cons>
         <cons>8,2,1</cons>
-        <cons>3,2,3</cons>
+        <cons>3,2,2</cons>
         <cons>2,2,6</cons>
         <cons>6,3,1</cons>
         <cons>4,3,3</cons>
