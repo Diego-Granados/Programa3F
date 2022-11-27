@@ -454,7 +454,7 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
         Configuracion.setNivel(nivel);
         Configuracion.setReloj(reloj);
         Configuracion.setLado(lado);
-        Configuracion.setTamaño(Integer.valueOf(getSizeButton()));
+        Configuracion.setTamaño(Integer.parseInt(getSizeButton()));
         JOptionPane.showMessageDialog(this, "¡Configuración guardada con éxito!");
         dispose();
         Menu menu = new Menu();

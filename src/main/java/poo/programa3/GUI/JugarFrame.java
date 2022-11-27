@@ -145,12 +145,13 @@ public class JugarFrame extends javax.swing.JFrame {
         ArrayList<javax.swing.JLabel> labelsVerticales = labelsVerticalesPorTablero.get(size);
         
         for(Operacion desigualdad : partida.getOperaciones()){
+            System.out.println(desigualdad.getIndiceFila() + " " + desigualdad.getIndiceColumna());
             switch(desigualdad.getTipo()){
                 case 'a': // pone los labels con el símbolo correcto
-                    labelsHorizontales.get(size * desigualdad.getIndiceFila() + desigualdad.getIndiceColumna()).setText(">");
+                    labelsHorizontales.get((size - 1) * desigualdad.getIndiceFila() + desigualdad.getIndiceColumna()).setText(">");
                     break;
                 case 'b':
-                    labelsHorizontales.get(size * desigualdad.getIndiceFila() + desigualdad.getIndiceColumna()).setText("<");
+                    labelsHorizontales.get((size - 1) * desigualdad.getIndiceFila() + desigualdad.getIndiceColumna()).setText("<");
                     break;
                 case 'y':
                     labelsVerticales.get(size*desigualdad.getIndiceFila() + desigualdad.getIndiceColumna()).setText("∨");
@@ -1364,6 +1365,12 @@ public class JugarFrame extends javax.swing.JFrame {
             initComponents();
             this.setLocationRelativeTo(null); // se centra la ventana
             
+            fill5();
+            fill6();
+            fill7();
+            fill8();
+            fill9();
+            
             casillasPorTablero.put(5, casillas5);
             casillasPorTablero.put(6, casillas6);
             casillasPorTablero.put(7, casillas7);
@@ -1376,17 +1383,17 @@ public class JugarFrame extends javax.swing.JFrame {
             nonCasillasPorTablero.put(8, nonCasillas8);
             nonCasillasPorTablero.put(9, nonCasillas9);
             
-            labelsHorizontalesPorTablero.put(5, labelsVerticales5);
-            labelsHorizontalesPorTablero.put(6, labelsVerticales6);
-            labelsHorizontalesPorTablero.put(7, labelsVerticales7);
-            labelsHorizontalesPorTablero.put(8, labelsVerticales8);
-            labelsHorizontalesPorTablero.put(9, labelsVerticales9);
+            labelsHorizontalesPorTablero.put(5, labelsHorizontales5);
+            labelsHorizontalesPorTablero.put(6, labelsHorizontales6);
+            labelsHorizontalesPorTablero.put(7, labelsHorizontales7);
+            labelsHorizontalesPorTablero.put(8, labelsHorizontales8);
+            labelsHorizontalesPorTablero.put(9, labelsHorizontales9);
             
-            nonLabelsHorizontalesPorTablero.put(5, labelsVerticales5);
-            nonLabelsHorizontalesPorTablero.put(6, labelsVerticales6);
-            nonLabelsHorizontalesPorTablero.put(7, labelsVerticales7);
-            nonLabelsHorizontalesPorTablero.put(8, labelsVerticales8);
-            nonLabelsHorizontalesPorTablero.put(9, labelsVerticales9);
+            nonLabelsHorizontalesPorTablero.put(5, nonLabelsHorizontales5);
+            nonLabelsHorizontalesPorTablero.put(6, nonLabelsHorizontales6);
+            nonLabelsHorizontalesPorTablero.put(7, nonLabelsHorizontales7);
+            nonLabelsHorizontalesPorTablero.put(8, nonLabelsHorizontales8);
+            nonLabelsHorizontalesPorTablero.put(9, nonLabelsHorizontales9);
             
             labelsVerticalesPorTablero.put(5, labelsVerticales5);
             labelsVerticalesPorTablero.put(6, labelsVerticales6);
@@ -1394,17 +1401,11 @@ public class JugarFrame extends javax.swing.JFrame {
             labelsVerticalesPorTablero.put(8, labelsVerticales8);
             labelsVerticalesPorTablero.put(9, labelsVerticales9);
             
-            nonLabelsVerticalesPorTablero.put(5, labelsVerticales5);
-            nonLabelsVerticalesPorTablero.put(6, labelsVerticales6);
-            nonLabelsVerticalesPorTablero.put(7, labelsVerticales7);
-            nonLabelsVerticalesPorTablero.put(8, labelsVerticales8);
-            nonLabelsVerticalesPorTablero.put(9, labelsVerticales9);
-            
-            fill5();
-            fill6();
-            fill7();
-            fill8();
-            fill9();
+            nonLabelsVerticalesPorTablero.put(5, nonLabelsVerticales5);
+            nonLabelsVerticalesPorTablero.put(6, nonLabelsVerticales6);
+            nonLabelsVerticalesPorTablero.put(7, nonLabelsVerticales7);
+            nonLabelsVerticalesPorTablero.put(8, nonLabelsVerticales8);
+            nonLabelsVerticalesPorTablero.put(9, nonLabelsVerticales9);
             
             if (Configuracion.getNivel().equals("Multinivel")){
                   nivel = "Fácil";
@@ -4259,9 +4260,9 @@ public class JugarFrame extends javax.swing.JFrame {
         if (respuesta == JOptionPane.YES_OPTION){
             IniciarJuego.setEnabled(true); // se reactiva el botón de iniciar juego
             TerminarJuego.setEnabled(false); // se desactiva este botón
-            resetTablero(); // se borrar todo el tablero
+            resetTablero(Configuracion.getTamaño()); // se borrar todo el tablero
             establecerPartida(); // se establece una nueva partida
-            establecerTablero(); // se establece el tablero con la nueva partida
+            establecerTablero(Configuracion.getTamaño()); // se establece el tablero con la nueva partida
             NombreTXT.setEditable(true);
             started = false;
             if (Configuracion.getReloj().equals("Timer")) { // si había un timer o reloj, se detiene y reinicia el contador
