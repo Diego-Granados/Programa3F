@@ -39,10 +39,18 @@ public class Configuracion {
         return reloj;
     }
     
+    /**
+     * Obtiene el tamaño
+     * @return tamaño
+     */
     public static int getTamaño(){
           return tamaño;
     }
     
+    /**
+     * Establece el tamaño
+     * @param pTamaño
+     */
     public static void setTamaño(int pTamaño){
           tamaño = pTamaño;
     }
