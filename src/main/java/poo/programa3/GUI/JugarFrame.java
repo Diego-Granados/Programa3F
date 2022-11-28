@@ -4068,6 +4068,7 @@ public class JugarFrame extends javax.swing.JFrame {
             Configuracion.setTamaño(size);
             resetTablero(Configuracion.getTamaño()); // se borra el tablero
             establecerTablero(Configuracion.getTamaño()); // se vuelve a establecer el tablero con la partida recuperada
+            setButtonPanel();
             for (int casilla = 0; casilla < size * size; casilla++){ // se vuelven a poner los valores de las casillas
                 casillasPorTablero.get(Configuracion.getTamaño())[casilla / size][casilla % size].setText(lineas.get(12 + casilla));
             }
