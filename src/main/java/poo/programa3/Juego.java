@@ -294,8 +294,9 @@ public class Juego {
      * @return verdadero si se ganó, falso si no
      */
     public boolean checkWin(Component window){
-            for (int i = 0; i < 5; i++){
-                  for (int j = 0; j < 5; j++){
+           int limit = Configuracion.getTamaño();
+            for (int i = 0; i < limit; i++){
+                  for (int j = 0; j < limit; j++){
                         if (casillas[i][j].getText().equals("")){
                               return false;
                         }
