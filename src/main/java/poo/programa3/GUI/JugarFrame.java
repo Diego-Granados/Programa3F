@@ -1387,7 +1387,11 @@ public class JugarFrame extends javax.swing.JFrame {
      }
      
      public void setButtonPanel(){
-           if (Configuracion.getTamaño() != 9) {
+            Btn6.setVisible(true);
+            Btn7.setVisible(true);
+            Btn8.setVisible(true);
+            Btn9.setVisible(true);
+            if (Configuracion.getTamaño() != 9) {
                   Btn9.setVisible(false);
             }
             if (Configuracion.getTamaño() <8){
