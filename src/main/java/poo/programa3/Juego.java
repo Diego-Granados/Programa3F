@@ -57,7 +57,7 @@ public class Juego {
                         return false;
                  }
             }
-            for (int i = 0; i < 5; i++){
+            for (int i = 0; i < Configuracion.getTamaño(); i++){
                   if (casillas[i][columna].getText().equals(numero)){
                         casillas[i][columna].setBackground(Color.red);
                         if ("Sí".equals(Configuracion.getReloj()) || "Timer".equals(Configuracion.getReloj())){

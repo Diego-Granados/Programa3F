@@ -99,6 +99,34 @@ public class JugarFrame extends javax.swing.JFrame {
     int count = 0; // se usa para el contador del timer
     int delay = 1000; // este delay se usa para que el timer cambie cada segundo.
       
+   private int calcularFila(int  pFila){
+         if (Configuracion.getTamaño() == 5){
+               pFila -= 2;
+         } else if (Configuracion.getTamaño() <= 8){
+               pFila -= 1;
+         }
+         return pFila;
+   }
+   
+   private int calcularColumna(int  pColumna){
+         if (Configuracion.getTamaño() <= 6){
+               pColumna -= 2;
+         } else if (Configuracion.getTamaño() <= 8){
+               pColumna -= 1;
+         }
+         return pColumna;
+   }
+   
+   public void putNumber(int fila, int columna){
+            if (!started) {
+                  return;             
+            }
+            win = juego.añadirNumero(getSelectedButtonText(), calcularFila(fila), calcularColumna(columna), this);
+            if (win){
+                  RegisterWin();
+            }
+   }
+   
    // Esta función restablece el tablero a vacío
     private void resetTablero(int size){
         ArrayList<javax.swing.JLabel> labelsHorizontales = labelsHorizontalesPorTablero.get(size);
@@ -3532,35 +3560,17 @@ public class JugarFrame extends javax.swing.JFrame {
       
       private void Btn01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn01ActionPerformed
             // TODO add your handling code here:
-            if (!started) {// si el juego no ha empezado, los botones no hacen nada
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 0,1, this); // verifica si ya se ganó el juego
-            if (win){
-                  RegisterWin(); // si sí, llama la función para detener el juego y registrarlo en el top 10
-            }
+            putNumber(0,1);
       }//GEN-LAST:event_Btn01ActionPerformed
 
       private void Btn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn10ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1,0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,0);
       }//GEN-LAST:event_Btn10ActionPerformed
 
       private void Btn00ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn00ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 0,0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(0,0);
       }//GEN-LAST:event_Btn00ActionPerformed
 
     /**
@@ -3629,244 +3639,112 @@ public class JugarFrame extends javax.swing.JFrame {
 
       private void Btn02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn02ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 0,2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(0,2);
       }//GEN-LAST:event_Btn02ActionPerformed
 
       private void Btn03ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn03ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 0,3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(0,3);
       }//GEN-LAST:event_Btn03ActionPerformed
 
       private void Btn04ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn04ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 0,4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(0,4);
       }//GEN-LAST:event_Btn04ActionPerformed
 
       private void Btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn11ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1,1, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,1);
       }//GEN-LAST:event_Btn11ActionPerformed
 
       private void Btn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn12ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1,2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,2);
       }//GEN-LAST:event_Btn12ActionPerformed
 
       private void Btn13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn13ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1,3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,3);
       }//GEN-LAST:event_Btn13ActionPerformed
 
       private void Btn14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn14ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1,4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,4);
       }//GEN-LAST:event_Btn14ActionPerformed
 
       private void Btn20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn20ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2,0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,0);
       }//GEN-LAST:event_Btn20ActionPerformed
 
       private void Btn21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn21ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2,1, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,1);
       }//GEN-LAST:event_Btn21ActionPerformed
 
       private void Btn22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn22ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2,2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,2);
       }//GEN-LAST:event_Btn22ActionPerformed
 
       private void Btn23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn23ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2,3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,3);
       }//GEN-LAST:event_Btn23ActionPerformed
 
       private void Btn24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn24ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2,4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,4);
       }//GEN-LAST:event_Btn24ActionPerformed
 
       private void Btn30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn30ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3,0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,0);
       }//GEN-LAST:event_Btn30ActionPerformed
 
       private void Btn31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn31ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3,1, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,1);
       }//GEN-LAST:event_Btn31ActionPerformed
 
       private void Btn32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn32ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3,2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,2);
       }//GEN-LAST:event_Btn32ActionPerformed
 
       private void Btn33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn33ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3,3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,3);
       }//GEN-LAST:event_Btn33ActionPerformed
 
       private void Btn34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn34ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3,4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,4);
       }//GEN-LAST:event_Btn34ActionPerformed
 
       private void Btn40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn40ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4,0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,0);
       }//GEN-LAST:event_Btn40ActionPerformed
 
       private void Btn41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn41ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4,1, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,1);
       }//GEN-LAST:event_Btn41ActionPerformed
 
       private void Btn42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn42ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4,2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,2);
       }//GEN-LAST:event_Btn42ActionPerformed
 
       private void Btn43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn43ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4,3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,3);
       }//GEN-LAST:event_Btn43ActionPerformed
 
       private void Btn44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn44ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4,4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,4);
       }//GEN-LAST:event_Btn44ActionPerformed
 
       // esta función llama a la función de borrar jugada
@@ -4244,624 +4122,289 @@ public class JugarFrame extends javax.swing.JFrame {
 
       private void Btn88ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn88ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,8);
       }//GEN-LAST:event_Btn88ActionPerformed
 
       private void Btn50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn50ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,0);
       }//GEN-LAST:event_Btn50ActionPerformed
 
       private void Btn51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn51ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 1, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,1);
       }//GEN-LAST:event_Btn51ActionPerformed
 
       private void Btn52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn52ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,2);
       }//GEN-LAST:event_Btn52ActionPerformed
 
       private void Btn53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn53ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,3);
       }//GEN-LAST:event_Btn53ActionPerformed
 
       private void Btn54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn54ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,4);
       }//GEN-LAST:event_Btn54ActionPerformed
 
       private void Btn60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn60ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6, 0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,0);
       }//GEN-LAST:event_Btn60ActionPerformed
 
       private void Btn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn61ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6, 1, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,1);
       }//GEN-LAST:event_Btn61ActionPerformed
 
       private void Btn62ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn62ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6, 2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,2);
       }//GEN-LAST:event_Btn62ActionPerformed
 
       private void Btn63ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn63ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6, 3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,3);
       }//GEN-LAST:event_Btn63ActionPerformed
 
       private void Btn64ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn64ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6, 4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,4);
       }//GEN-LAST:event_Btn64ActionPerformed
 
       private void Btn70ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn70ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7, 0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,0);
       }//GEN-LAST:event_Btn70ActionPerformed
 
       private void Btn71ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn71ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7, 1, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,1);
       }//GEN-LAST:event_Btn71ActionPerformed
 
       private void Btn72ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn72ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7,2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,2);
       }//GEN-LAST:event_Btn72ActionPerformed
 
       private void Btn73ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn73ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7, 3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,3);
       }//GEN-LAST:event_Btn73ActionPerformed
 
       private void Btn74ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn74ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7, 4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,4);
       }//GEN-LAST:event_Btn74ActionPerformed
 
       private void Btn55ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn55ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,5);
       }//GEN-LAST:event_Btn55ActionPerformed
 
       private void Btn80ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn80ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 0, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,0);
       }//GEN-LAST:event_Btn80ActionPerformed
 
       private void Btn85ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn85ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,5);
       }//GEN-LAST:event_Btn85ActionPerformed
 
       private void Btn81ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn81ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 1, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,1);
       }//GEN-LAST:event_Btn81ActionPerformed
 
       private void Btn75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn75ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7, 5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,5);
       }//GEN-LAST:event_Btn75ActionPerformed
 
       private void Btn82ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn82ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 2, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,2);
       }//GEN-LAST:event_Btn82ActionPerformed
 
       private void Btn83ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn83ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 3, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,3);
       }//GEN-LAST:event_Btn83ActionPerformed
 
       private void Btn65ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn65ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6, 5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,5);
       }//GEN-LAST:event_Btn65ActionPerformed
 
       private void Btn45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn45ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4, 5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,5);
       }//GEN-LAST:event_Btn45ActionPerformed
 
       private void Btn84ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn84ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 4, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,4);
       }//GEN-LAST:event_Btn84ActionPerformed
 
       private void Btn35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn35ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3, 5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,5);
       }//GEN-LAST:event_Btn35ActionPerformed
 
       private void Btn25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn25ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2, 5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,5);
       }//GEN-LAST:event_Btn25ActionPerformed
 
       private void Btn15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn15ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1, 5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,5);
       }//GEN-LAST:event_Btn15ActionPerformed
 
       private void Btn05ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn05ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 0,5, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(0,5);
       }//GEN-LAST:event_Btn05ActionPerformed
 
       private void Btn06ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn06ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 0,6, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(0,6);
       }//GEN-LAST:event_Btn06ActionPerformed
 
       private void Btn16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn16ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1, 6, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,6);
       }//GEN-LAST:event_Btn16ActionPerformed
 
       private void Btn26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn26ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2, 6, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,6);
       }//GEN-LAST:event_Btn26ActionPerformed
 
       private void Btn36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn36ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3, 6, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,6);
       }//GEN-LAST:event_Btn36ActionPerformed
 
       private void Btn46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn46ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4, 6, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,6);
       }//GEN-LAST:event_Btn46ActionPerformed
 
       private void Btn56ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn56ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 6, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,6);
       }//GEN-LAST:event_Btn56ActionPerformed
 
       private void Btn66ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn66ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6, 6, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,6);
       }//GEN-LAST:event_Btn66ActionPerformed
 
       private void Btn76ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn76ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7,6 , this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,6);
       }//GEN-LAST:event_Btn76ActionPerformed
 
       private void Btn86ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn86ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 6, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,6);
       }//GEN-LAST:event_Btn86ActionPerformed
 
       private void Btn87ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn87ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 8, 7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(8,7);
       }//GEN-LAST:event_Btn87ActionPerformed
 
       private void Btn77ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn77ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7, 7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,7);
       }//GEN-LAST:event_Btn77ActionPerformed
 
       private void Btn67ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn67ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6,7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,7);
       }//GEN-LAST:event_Btn67ActionPerformed
 
       private void Btn57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn57ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,7);
       }//GEN-LAST:event_Btn57ActionPerformed
 
       private void Btn47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn47ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4, 7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,7);
       }//GEN-LAST:event_Btn47ActionPerformed
 
       private void Btn37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn37ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3, 7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,7);
       }//GEN-LAST:event_Btn37ActionPerformed
 
       private void Btn27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn27ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2, 7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,7);
       }//GEN-LAST:event_Btn27ActionPerformed
 
       private void Btn17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn17ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1, 7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,7);
       }//GEN-LAST:event_Btn17ActionPerformed
 
       private void Btn08ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn08ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(),0,8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(0,8);
       }//GEN-LAST:event_Btn08ActionPerformed
 
       private void Btn07ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn07ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 0,7, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(0,7);
       }//GEN-LAST:event_Btn07ActionPerformed
 
       private void Btn18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn18ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 1, 8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(1,8);
       }//GEN-LAST:event_Btn18ActionPerformed
 
       private void Btn28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn28ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 2, 8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(2,8);
       }//GEN-LAST:event_Btn28ActionPerformed
 
       private void Btn38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn38ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 3, 8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(3,8);
       }//GEN-LAST:event_Btn38ActionPerformed
 
       private void Btn48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn48ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 4, 8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(4,8);
       }//GEN-LAST:event_Btn48ActionPerformed
 
       private void Btn58ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn58ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 5, 8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(5,8);
       }//GEN-LAST:event_Btn58ActionPerformed
 
       private void Btn68ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn68ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 6, 8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(6,8);
       }//GEN-LAST:event_Btn68ActionPerformed
 
       private void Btn78ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn78ActionPerformed
             // TODO add your handling code here:
-            if (!started) {
-                  return;             
-            }
-            win = juego.añadirNumero(getSelectedButtonText(), 7, 8, this);
-            if (win){
-                  RegisterWin();
-            }
+            putNumber(7,8);
       }//GEN-LAST:event_Btn78ActionPerformed
 
       private void PistaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PistaButtonActionPerformed
             // TODO add your handling code here:
             Posibles window = new Posibles();
             window.setVisible(true);
+            
       }//GEN-LAST:event_PistaButtonActionPerformed
 
       private void Btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn6ActionPerformed

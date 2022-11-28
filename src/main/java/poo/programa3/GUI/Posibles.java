@@ -149,6 +149,7 @@ public class Posibles extends javax.swing.JFrame {
             }
             
             JOptionPane.showMessageDialog(this, texto); 
+            dispose();
       }//GEN-LAST:event_FindButtonActionPerformed
 
       /**
