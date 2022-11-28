@@ -4260,9 +4260,7 @@ public class JugarFrame extends javax.swing.JFrame {
         if (respuesta == JOptionPane.YES_OPTION){
             IniciarJuego.setEnabled(true); // se reactiva el botón de iniciar juego
             TerminarJuego.setEnabled(false); // se desactiva este botón
-            resetTablero(Configuracion.getTamaño()); // se borrar todo el tablero
             establecerPartida(); // se establece una nueva partida
-            establecerTablero(Configuracion.getTamaño()); // se establece el tablero con la nueva partida
             NombreTXT.setEditable(true);
             started = false;
             if (Configuracion.getReloj().equals("Timer")) { // si había un timer o reloj, se detiene y reinicia el contador
@@ -4481,6 +4479,7 @@ public class JugarFrame extends javax.swing.JFrame {
             save.write(horassave + "\n"); // se salva el nombre del jugador
             save.write(minutossave + "\n"); // se salva el nombre del jugador
             save.write(segundossave + "\n"); // se salva el nombre del jugador
+            save.write(Configuracion.getTamaño() + "\n");
             for (javax.swing.JButton[] fila : casillasPorTablero.get(Configuracion.getTamaño())){ // se salvan todas las casillas
                 for (javax.swing.JButton casilla : fila){
                     save.write(casilla.getText() + "\n");
@@ -4524,10 +4523,6 @@ public class JugarFrame extends javax.swing.JFrame {
             Configuracion.setNivel(lineas.get(0)); // se establece el nivel
             NivelTXT.setText(lineas.get(0)); 
             partida = Partida.getPartidasPorNivel(Configuracion.getTamaño()).get(lineas.get(0)).get(Integer.parseInt(lineas.get(1))); // se obtiene la partida
-            resetTablero(Configuracion.getTamaño()); // se borra el tablero
-            establecerTablero(Configuracion.getTamaño()); // se vuelve a establecer el tablero con la partida recuperada
-            Configuracion.setReloj(lineas.get(2)); // se obtiene el reloj
-            
             // si se había guardado una partida con reloj o timer, se pone el frame
             if (Configuracion.getReloj().equals("Timer") || Configuracion.getReloj().equals("Sí")){
                 relojFrame.setVisible(true);
@@ -4545,13 +4540,16 @@ public class JugarFrame extends javax.swing.JFrame {
             horassave = lineas.get(8);
             minutossave = lineas.get(9);
             segundossave = lineas.get(10);
-            
-            for (int casilla = 0; casilla < 25; casilla++){ // se vuelven a poner los valores de las casillas
-                casillasPorTablero.get(Configuracion.getTamaño())[casilla / 5][casilla % 5].setText(lineas.get(11 + casilla));
+            int size = Integer.parseInt(lineas.get(11));
+            Configuracion.setTamaño(size);
+            resetTablero(Configuracion.getTamaño()); // se borra el tablero
+            establecerTablero(Configuracion.getTamaño()); // se vuelve a establecer el tablero con la partida recuperada
+            for (int casilla = 0; casilla < size * size; casilla++){ // se vuelven a poner los valores de las casillas
+                casillasPorTablero.get(Configuracion.getTamaño())[casilla / size][casilla % size].setText(lineas.get(12 + casilla));
             }
             
             IniciarJuegoActionPerformed(evt); // se inicia el juego otra vez
-            int indexList = 36;
+            int indexList = 12 + size * size;
             // establecemos las pilas
             System.out.println(lineas.get(indexList));
             Stack<String> temp = new Stack<>(); // pila temporal para luego conseguir el orden verdadero de la pila
