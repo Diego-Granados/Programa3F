@@ -13,32 +13,32 @@ import java.util.HashMap;
  * @author dandi
  */
 public class Marca {
-      private String nombre; // se almacena el nombre del jugador
-      private int tiempo; // se almacena el tiempo del jugador
-      private String nivel; // se almacena el nivel de la partida
-
-    /**
-     * ArrayList que almacena las marcas del nivel fácil
-     */
-    public static ArrayList<Marca> marcasFaciles = new ArrayList<>(); // estos arraylists estáticos almacenan todas las marcas de su nivel
-
-    /**
-     * ArrayList que almacena las marcas del nivel intermedio
-     */
-    public static ArrayList<Marca> marcasIntermedias = new ArrayList<>();
-
-    /**
-     * ArrayList que almacena las marcas del nivel difícil
-     */
-    public static ArrayList<Marca> marcasDificiles = new ArrayList<>();
-
-    /**
-     * HashMap que mapea los ArrayLists de cada nivel por un string con su nombre de nivel.
-     */
-    public static HashMap<String,ArrayList<Marca>> marcas = new HashMap<>(); // Este hashmap se va a usar para obtener el arraylist dependiendo del nivel
+    private String nombre; // se almacena el nombre del jugador
+    private int tiempo; // se almacena el tiempo del jugador
+    private String nivel; // se almacena el nivel de la partida
       
-      private static ArrayList<String> strings = new ArrayList<>(); // este arraylist se usa para guardar las líneas leídas del archivo de top 10
-      
+    private static ArrayList<Marca> marcasFaciles5 = new ArrayList<>(); // estos arraylists estáticos almacenan todas las marcas de su nivel y cuadrícula de 5
+    private static ArrayList<Marca> marcasIntermedias5 = new ArrayList<>();
+    private static ArrayList<Marca> marcasDificiles5 = new ArrayList<>();
+    private static HashMap<String,ArrayList<Marca>> marcas5 = new HashMap<>(); // Este hashmap se va a usar para obtener el arraylist dependiendo del nivel
+    private static ArrayList<Marca> marcasFaciles6 = new ArrayList<>(); // estos arraylists estáticos almacenan todas las marcas de su nivel y cuadrícula de 6
+    private static ArrayList<Marca> marcasIntermedias6 = new ArrayList<>();
+    private static ArrayList<Marca> marcasDificiles6 = new ArrayList<>();
+    private static HashMap<String,ArrayList<Marca>> marcas6 = new HashMap<>(); // Este hashmap se va a usar para obtener el arraylist dependiendo del nivel
+    private static ArrayList<Marca> marcasFaciles7 = new ArrayList<>(); // estos arraylists estáticos almacenan todas las marcas de su nivel y cuadrícula de 7
+    private static ArrayList<Marca> marcasIntermedias7 = new ArrayList<>();
+    private static ArrayList<Marca> marcasDificiles7 = new ArrayList<>();
+    private static HashMap<String,ArrayList<Marca>> marcas7 = new HashMap<>(); // Este hashmap se va a usar para obtener el arraylist dependiendo del nivel
+    private static ArrayList<Marca> marcasFaciles8 = new ArrayList<>(); // estos arraylists estáticos almacenan todas las marcas de su nivel y cuadrícula de 8
+    private static ArrayList<Marca> marcasIntermedias8 = new ArrayList<>();
+    private static ArrayList<Marca> marcasDificiles8 = new ArrayList<>();
+    private static HashMap<String,ArrayList<Marca>> marcas8 = new HashMap<>(); // Este hashmap se va a usar para obtener el arraylist dependiendo del nivel
+    private static ArrayList<Marca> marcasFaciles9 = new ArrayList<>(); // estos arraylists estáticos almacenan todas las marcas de su nivel y cuadrícula de 9
+    private static ArrayList<Marca> marcasIntermedias9 = new ArrayList<>();
+    private static ArrayList<Marca> marcasDificiles9 = new ArrayList<>();
+    private static HashMap<String,ArrayList<Marca>> marcas9 = new HashMap<>(); // Este hashmap se va a usar para obtener el arraylist dependiendo del nivel
+    
+    public static HashMap<Integer, HashMap<String,ArrayList<Marca>>> marcasMap = new HashMap<>();
     /**
      * constructor de la clase
      * @param pNombre
@@ -53,32 +53,52 @@ public class Marca {
       }
 
     /**
-     * esta función crea el hashmap que contiene los arraylist de marcas y se lee el archivo con el top 10 
+     * esta función crea el hashmap que contiene todos los hashmaps con los arraylist de marcas y se lee el archivo con el top 10 
      */
       public static void createHashMap(){
-            marcas.put("Fácil", marcasFaciles);
-            marcas.put("Intermedio", marcasIntermedias);
-            marcas.put("Difícil", marcasDificiles);
+            marcas5.put("Fácil", marcasFaciles5);
+            marcas5.put("Intermedio", marcasIntermedias5);
+            marcas5.put("Difícil", marcasDificiles5);
+            marcas6.put("Fácil", marcasFaciles6);
+            marcas6.put("Intermedio", marcasIntermedias6);
+            marcas6.put("Difícil", marcasDificiles6);
+            marcas7.put("Fácil", marcasFaciles7);
+            marcas7.put("Intermedio", marcasIntermedias7);
+            marcas7.put("Difícil", marcasDificiles7);
+            marcas8.put("Fácil", marcasFaciles8);
+            marcas8.put("Intermedio", marcasIntermedias8);
+            marcas8.put("Difícil", marcasDificiles8);
+            marcas9.put("Fácil", marcasFaciles9);
+            marcas9.put("Intermedio", marcasIntermedias9);
+            marcas9.put("Difícil", marcasDificiles9);
+            marcasMap.put(5, marcas5);
+            marcasMap.put(6, marcas6);
+            marcasMap.put(7, marcas7);
+            marcasMap.put(8, marcas8);
+            marcasMap.put(9, marcas9);
             try {
                   BufferedReader bf = new BufferedReader(new FileReader("src\\main\\java\\poo\\programa3\\modelo\\futoshiki2022top10.dat")); // se abre el archivo
                   
                   String line = bf.readLine(); // se lee la primer línea
-                  while (line != null){ // se lee hasta que se termine el archivo
-                        strings.add(line);
-                        line = bf.readLine();
+                  String[] niveles = new String[] {"Fácil", "Intermedio", "Difícil"};
+                  
+                  for (int size = 5; size < 10 && line != null; size++){
+                      for (int nivel = 0; nivel < 3 && line != null; nivel++){
+                          for (int entrada = 0; entrada < 10 && line != null; entrada++){
+                                String [] partes = line.split(" "); // se divide en las partes, que son el nombre, el tiempo y el nivel
+                                // partes[0] = nombre, 1 = tiempo y 2 = nivel
+                                if  (!(partes[0].equals("N")) && !(partes[1].equals("N")) && !(partes[2].equals("N"))){ // si la marca no es nula
+                                      marcasMap.get(size).get(niveles[nivel]).add(new Marca(partes[0], Integer.valueOf(partes[1]), partes[2])); // se crea la marca y se añade a la lista
+                                }
+                                line = bf.readLine();
+                          }
+                      }
                   }
                   bf.close(); // se cierra el archivo
-                  for (int i = 0; i < strings.size(); i++ ){ // por cada string,
-                        String [] partes = strings.get(i).split(" "); // se divide en las partes, que son el nombre, el tiempo y el nivel
-                        
-                        if  (!(partes[0].equals("N")) && !(partes[1].equals("N")) && !(partes[2].equals("N"))){ // si la marca no es nula
-                              Marca.marcas.get(partes[2]).add(new Marca(partes[0], Integer.valueOf(partes[1]), partes[2])); // se crea la marca y se añade a la lista
-                              
-                        }
-                  }
             }
             catch (Exception e){
-                  System.out.println("ERROR: NO SE PUEDE LEER ESTE ARCHIVO.");
+                e.printStackTrace();
+                System.out.println("ERROR: NO SE PUEDE LEER ESTE ARCHIVO.");
             }
       }
 

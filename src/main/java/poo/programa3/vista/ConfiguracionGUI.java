@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package poo.programa3.vista;
+import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.HashMap;
 import javax.swing.AbstractButton;
@@ -30,50 +31,7 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
     public ConfiguracionGUI() {
         initComponents();
         this.setLocationRelativeTo(null);
-        niveles.put("Fácil", facilButton);
-        niveles.put("Intermedio", intermedioButton);
-        niveles.put("Difícil", dificilButton);
-        relojes.put("Sí", siButton);
-        relojes.put("Timer", timerButton);
-        relojes.put("No", noButton);
-        lados.put(false, izquierdaButton);
-        lados.put(true, derechaButton);
-        tamaños.put(5, CincoButton);
-        tamaños.put(6,SeisButton);
-        tamaños.put(7, SieteButton);
-        tamaños.put(8,OchoButton);
-        tamaños.put(9,NueveButton);
-        System.out.println(Configuracion.getNivel());
-        if (!Configuracion.getNivel().equals("Multinivel")){
-              niveles.get(Configuracion.getNivel()).setSelected(true); // obtenemos el objeto del boton respectivo al nivel y lo activamos.
-        } else {
-              multinivelButton.setSelected(true);
-        }
         
-        relojes.get(Configuracion.getReloj()).setSelected(true); // obtenemos el objeto del boton respectivo al reloj y lo activamos.
-        lados.get(Configuracion.getLado()).setSelected(true); // obtenemos el objeto del boton respectivo al lado y lo activamos.
-        tamaños.get(Configuracion.getTamaño()).setSelected(true);
-        if (Configuracion.getReloj().equals("No")){
-            relojFrame.setVisible(false);
-        } else if (Configuracion.getReloj().equals("Sí")){
-            relojFrame.setVisible(true);
-            horasField.setEditable(false);
-            minutosField.setEditable(false);
-            segundosField.setEditable(false);
-            horasField.setText("0");
-            minutosField.setText("0");
-            segundosField.setText("0");
-        } else {
-            horasField.setEditable(true);
-            minutosField.setEditable(true);
-            segundosField.setEditable(true);
-            horasField.setText(Reloj.getHoras());
-            minutosField.setText(Reloj.getMinutos());
-            segundosField.setText(Reloj.getSegundos());
-        }
-        nivel = Configuracion.getNivel();
-        reloj = Configuracion.getReloj();
-        lado = Configuracion.getLado();
         
     }
 
@@ -135,71 +93,41 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
             facilButton.setSelected(true);
             facilButton.setText("Fácil");
             facilButton.setToolTipText("");
-            facilButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        facilButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(facilButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 98, -1));
 
             nivelGroup.add(intermedioButton);
             intermedioButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
             intermedioButton.setText("Intermedio");
             intermedioButton.setToolTipText("");
-            intermedioButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        intermedioButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(intermedioButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 116, -1));
 
             nivelGroup.add(dificilButton);
             dificilButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
             dificilButton.setText("Difícil");
             dificilButton.setToolTipText("");
-            dificilButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        dificilButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(dificilButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 116, -1));
 
             jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
             jLabel3.setText("3. Posición de la ventana del panel de dígitos:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 339, 393, -1));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 393, -1));
 
             relojGroup.add(siButton);
             siButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
             siButton.setSelected(true);
             siButton.setText("Sí");
             siButton.setToolTipText("");
-            siButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        siButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(siButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 98, -1));
 
             relojGroup.add(timerButton);
             timerButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
             timerButton.setText("Timer");
             timerButton.setToolTipText("");
-            timerButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        timerButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(timerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 116, -1));
 
             relojGroup.add(noButton);
             noButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
             noButton.setText("No");
             noButton.setToolTipText("");
-            noButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        noButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(noButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 116, -1));
 
             jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -210,24 +138,14 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
             izquierdaButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
             izquierdaButton.setText("Izquierda");
             izquierdaButton.setToolTipText("");
-            izquierdaButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        izquierdaButtonActionPerformed(evt);
-                  }
-            });
-            getContentPane().add(izquierdaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 382, 98, -1));
+            getContentPane().add(izquierdaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 98, -1));
 
             posicionGroup.add(derechaButton);
             derechaButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
             derechaButton.setSelected(true);
             derechaButton.setText("Derecha");
             derechaButton.setToolTipText("");
-            derechaButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        derechaButtonActionPerformed(evt);
-                  }
-            });
-            getContentPane().add(derechaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 382, 116, -1));
+            getContentPane().add(derechaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 116, -1));
 
             relojFrame.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
             relojFrame.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -249,19 +167,7 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
             jLabel6.setText("Minutos");
             jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
             relojFrame.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 0, 65, 24));
-
-            horasField.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        horasFieldActionPerformed(evt);
-                  }
-            });
             relojFrame.add(horasField, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 65, 71, -1));
-
-            minutosField.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        minutosFieldActionPerformed(evt);
-                  }
-            });
             relojFrame.add(minutosField, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 65, 71, -1));
             relojFrame.add(segundosField, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 65, 71, -1));
 
@@ -270,37 +176,22 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
             saveButton.setBackground(new java.awt.Color(204, 255, 204));
             saveButton.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
             saveButton.setText("Guardar");
-            saveButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        saveButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(418, 79, -1, -1));
 
             cancelButton.setBackground(new java.awt.Color(255, 102, 102));
             cancelButton.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
             cancelButton.setText("Cancelar");
-            cancelButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        cancelButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(418, 142, -1, -1));
 
             nivelGroup.add(multinivelButton);
             multinivelButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
             multinivelButton.setText("Multinivel");
             multinivelButton.setToolTipText("");
-            multinivelButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        multinivelButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(multinivelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 116, -1));
 
-            jLabel8.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+            jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
             jLabel8.setText("4. Tamaño de la cuadrícula:");
-            getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, -1, -1));
+            getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, -1));
 
             SizeButton.add(CincoButton);
             CincoButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
@@ -330,153 +221,42 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
             pack();
       }// </editor-fold>//GEN-END:initComponents
 
-    private void facilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facilButtonActionPerformed
-        // TODO add your handling code here:
-        nivel = "Fácil";
-    }//GEN-LAST:event_facilButtonActionPerformed
-
-    private void intermedioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intermedioButtonActionPerformed
-        // TODO add your handling code here:
-        nivel = "Intermedio";
-    }//GEN-LAST:event_intermedioButtonActionPerformed
-
-    private void dificilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dificilButtonActionPerformed
-        // TODO add your handling code here:
-        nivel = "Difícil";
-    }//GEN-LAST:event_dificilButtonActionPerformed
-
-    private void siButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siButtonActionPerformed
-        // TODO add your handling code here:
-        reloj = "Sí";
-        relojFrame.setVisible(true);
-        horasField.setEditable(false);
-        minutosField.setEditable(false);
-        segundosField.setEditable(false);
-        horasField.setText("0");
-        minutosField.setText("0");
-        segundosField.setText("0");
-    }//GEN-LAST:event_siButtonActionPerformed
-
-    private void timerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timerButtonActionPerformed
-        // TODO add your handling code here:
-        reloj = "Timer";
-        relojFrame.setVisible(true);
-        horasField.setEditable(true);
-        minutosField.setEditable(true);
-        segundosField.setEditable(true);
-    }//GEN-LAST:event_timerButtonActionPerformed
-
-    private void noButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noButtonActionPerformed
-        // TODO add your handling code here:
-        reloj = "No";
-        relojFrame.setVisible(false);
-    }//GEN-LAST:event_noButtonActionPerformed
-
-    private void izquierdaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_izquierdaButtonActionPerformed
-        // TODO add your handling code here:
-        lado = false;
-    }//GEN-LAST:event_izquierdaButtonActionPerformed
-
-    private void derechaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_derechaButtonActionPerformed
-        // TODO add your handling code here:
-        lado = true;
-    }//GEN-LAST:event_derechaButtonActionPerformed
-
-    private void horasFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horasFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_horasFieldActionPerformed
-
-    private String getSizeButton() {
-        for (Enumeration<AbstractButton> buttons = SizeButton.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
-
-        return null;
+      public void addFacilActionListener(ActionListener a){
+                             facilButton.addActionListener(a);
     }
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        // TODO add your handling code here:
-        if (!noButton.isSelected()){
-            String horas = horasField.getText();
-            String minutos = minutosField.getText();
-            String segundos = segundosField.getText();
-                if (timerButton.isSelected()){
-                // validación de las horas, minutos y segundos
-                try{
-                    Reloj.validarEntrada(horas, 0, 2);
-                } catch (NumberFormatException e){
-                    JOptionPane.showMessageDialog(this, "Las horas deben ser un número.", 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } catch (RangeException e){
-                    JOptionPane.showMessageDialog(this, "Las horas deben ser del 0 al 2.", 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                try{
-                    Reloj.validarEntrada(minutos, 0, 59);
-                } catch (NumberFormatException e){
-                    JOptionPane.showMessageDialog(this, "Los minutos deben ser un número.", 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } catch (RangeException e){
-                    JOptionPane.showMessageDialog(this, "Los minutos deben ser del 0 al 59.", 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                try{
-                    Reloj.validarEntrada(segundos, 0, 59);
-                } catch (NumberFormatException e){
-                    JOptionPane.showMessageDialog(this, "Los segundos deben ser un número.", 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } catch (RangeException e){
-                    JOptionPane.showMessageDialog(this, "Los segundos deben ser del 0 al 59.", 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+    public void addIntermedioActionListener(ActionListener a){
+                             intermedioButton.addActionListener(a);
+    }
+      public void addDificilActionListener(ActionListener a){
+                             dificilButton.addActionListener(a);
+    }
+     public void addSiActionListener(ActionListener a){
+                             siButton.addActionListener(a);
+    }
+     
+    public void addTimerActionListener(ActionListener a){
+                             timerButton.addActionListener(a);
+    }
+    public void addNoActionListener(ActionListener a){
+                             noButton.addActionListener(a);
+    }
+    
+    public void addIzquierdaActionListener(ActionListener a){
+                             izquierdaButton.addActionListener(a);
+    }
+    public void addDerechaActionListener(ActionListener a){
+                             derechaButton.addActionListener(a);
+    }
 
-                // si los tres son 0, enviamos un error
-                if (horas.equals("0") && minutos.equals("0") && segundos.equals("0")){
-                    JOptionPane.showMessageDialog(this, "Al menos un valor no debe ser 0.", 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-            Reloj.setHoras(horas);
-            Reloj.setMinutos(minutos);
-            Reloj.setSegundos(segundos);   
-        }
-        
-        Configuracion.setNivel(nivel);
-        Configuracion.setReloj(reloj);
-        Configuracion.setLado(lado);
-        Configuracion.setTamaño(Integer.parseInt(getSizeButton()));
-        JOptionPane.showMessageDialog(this, "¡Configuración guardada con éxito!");
-        dispose();
-        Menu menu = new Menu();
-        menu.setVisible(true);
-    }//GEN-LAST:event_saveButtonActionPerformed
-
-    private void minutosFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minutosFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_minutosFieldActionPerformed
-
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        Menu menu = new Menu();
-        menu.setVisible(true);
-    }//GEN-LAST:event_cancelButtonActionPerformed
-
-      private void multinivelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multinivelButtonActionPerformed
-            // TODO add your handling code here:
-            nivel = "Multinivel";
-      }//GEN-LAST:event_multinivelButtonActionPerformed
-
+    public void addSaveActionListener(ActionListener a){
+                             saveButton.addActionListener(a);
+    }
+    public void addCancelActionListener(ActionListener a){
+                             cancelButton.addActionListener(a);
+    }
+      public void addMultinivelActionListener(ActionListener a){
+                             multinivelButton.addActionListener(a);
+    }
     /**
      * @param args the command line arguments
      */
@@ -513,6 +293,10 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
         });
     }
 
+    public javax.swing.ButtonGroup obtainSizeButton(){
+          return SizeButton;
+    }
+    
       // Variables declaration - do not modify//GEN-BEGIN:variables
       private javax.swing.JRadioButton CincoButton;
       private javax.swing.JRadioButton NueveButton;
@@ -547,4 +331,156 @@ public class ConfiguracionGUI extends javax.swing.JFrame {
       private javax.swing.JRadioButton siButton;
       private javax.swing.JRadioButton timerButton;
       // End of variables declaration//GEN-END:variables
+
+      public String getNivel() {
+            return nivel;
+      }
+
+      public String getReloj() {
+            return reloj;
+      }
+
+      public boolean isLado() {
+            return lado;
+      }
+
+      public HashMap<String, javax.swing.JRadioButton> getNiveles() {
+            return niveles;
+      }
+
+      public HashMap<String, javax.swing.JRadioButton> getRelojes() {
+            return relojes;
+      }
+
+      public HashMap<Boolean, javax.swing.JRadioButton> getLados() {
+            return lados;
+      }
+
+      public HashMap<Integer, javax.swing.JRadioButton> getTamaños() {
+            return tamaños;
+      }
+
+      public javax.swing.JRadioButton getCincoButton() {
+            return CincoButton;
+      }
+
+      public javax.swing.JRadioButton getNueveButton() {
+            return NueveButton;
+      }
+
+      public javax.swing.JRadioButton getOchoButton() {
+            return OchoButton;
+      }
+
+      public javax.swing.JRadioButton getSeisButton() {
+            return SeisButton;
+      }
+
+      public javax.swing.JRadioButton getSieteButton() {
+            return SieteButton;
+      }
+
+      public javax.swing.JButton getCancelButton() {
+            return cancelButton;
+      }
+
+      public javax.swing.JRadioButton getDerechaButton() {
+            return derechaButton;
+      }
+
+      public javax.swing.JRadioButton getDificilButton() {
+            return dificilButton;
+      }
+
+      public javax.swing.JRadioButton getFacilButton() {
+            return facilButton;
+      }
+
+      public javax.swing.JTextField getHorasField() {
+            return horasField;
+      }
+
+      public javax.swing.JRadioButton getIntermedioButton() {
+            return intermedioButton;
+      }
+
+      public javax.swing.JRadioButton getIzquierdaButton() {
+            return izquierdaButton;
+      }
+
+      public javax.swing.JLabel getjLabel1() {
+            return jLabel1;
+      }
+
+      public javax.swing.JLabel getjLabel2() {
+            return jLabel2;
+      }
+
+      public javax.swing.JLabel getjLabel3() {
+            return jLabel3;
+      }
+
+      public javax.swing.JLabel getjLabel4() {
+            return jLabel4;
+      }
+
+      public javax.swing.JLabel getjLabel5() {
+            return jLabel5;
+      }
+
+      public javax.swing.JLabel getjLabel6() {
+            return jLabel6;
+      }
+
+      public javax.swing.JLabel getjLabel7() {
+            return jLabel7;
+      }
+
+      public javax.swing.JLabel getjLabel8() {
+            return jLabel8;
+      }
+
+      public javax.swing.JTextField getMinutosField() {
+            return minutosField;
+      }
+
+      public javax.swing.JRadioButton getMultinivelButton() {
+            return multinivelButton;
+      }
+
+      public javax.swing.ButtonGroup getNivelGroup() {
+            return nivelGroup;
+      }
+
+      public javax.swing.JRadioButton getNoButton() {
+            return noButton;
+      }
+
+      public javax.swing.ButtonGroup getPosicionGroup() {
+            return posicionGroup;
+      }
+
+      public javax.swing.JPanel getRelojFrame() {
+            return relojFrame;
+      }
+
+      public javax.swing.ButtonGroup getRelojGroup() {
+            return relojGroup;
+      }
+
+      public javax.swing.JButton getSaveButton() {
+            return saveButton;
+      }
+
+      public javax.swing.JTextField getSegundosField() {
+            return segundosField;
+      }
+
+      public javax.swing.JRadioButton getSiButton() {
+            return siButton;
+      }
+
+      public javax.swing.JRadioButton getTimerButton() {
+            return timerButton;
+      }
 }

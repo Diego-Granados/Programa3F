@@ -1864,39 +1864,39 @@ public class JugarFrame extends javax.swing.JFrame {
     }
     
     public void addBtn60ActionListener(ActionListener a){
-                             Btn00.addActionListener(a);
+                             Btn60.addActionListener(a);
     }
     
     public void addBtn61ActionListener(ActionListener a){
-                             Btn01.addActionListener(a);
+                             Btn61.addActionListener(a);
     }
     
     public void addBtn62ActionListener(ActionListener a){
-                             Btn02.addActionListener(a);
+                             Btn62.addActionListener(a);
     }
     
     public void addBtn63ActionListener(ActionListener a){
-                             Btn03.addActionListener(a);
+                             Btn63.addActionListener(a);
     }
     
     public void addBtn64ActionListener(ActionListener a){
-                             Btn04.addActionListener(a);
+                             Btn64.addActionListener(a);
     }
     
     public void addBtn65ActionListener(ActionListener a){
-                             Btn05.addActionListener(a);
+                             Btn65.addActionListener(a);
     }
     
     public void addBtn66ActionListener(ActionListener a){
-                             Btn06.addActionListener(a);
+                             Btn66.addActionListener(a);
     }
     
     public void addBtn67ActionListener(ActionListener a){
-                             Btn07.addActionListener(a);
+                             Btn67.addActionListener(a);
     }
     
     public void addBtn68ActionListener(ActionListener a){
-                             Btn08.addActionListener(a);
+                             Btn68.addActionListener(a);
     }
     
     public void addBtn70ActionListener(ActionListener a){

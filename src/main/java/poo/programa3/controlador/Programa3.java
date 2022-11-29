@@ -9,7 +9,6 @@ import java.awt.Component;
 import java.awt.Desktop;
 import poo.programa3.modelo.*;
 import poo.programa3.vista.*;
-import javax.swing.UIManager;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -31,7 +30,20 @@ import javax.swing.Timer;
  * @author Daniel Granados Retana, carné 2022104692, y Diego Granados Retana, carné 2022158363
  */
 public class Programa3 {
+      
+      private String nivelConfig;
+    private String reloj;
+    private boolean lado;
+    private HashMap<String, javax.swing.JRadioButton> niveles = new HashMap<>();
+    private HashMap<String, javax.swing.JRadioButton> relojes = new HashMap<>();
+    private HashMap<Boolean, javax.swing.JRadioButton> lados = new HashMap<>();
+    private HashMap<Integer, javax.swing.JRadioButton> tamaños = new HashMap<>();
+    
       private JugarFrame jugarFrame = new JugarFrame();
+      private ConfiguracionGUI configGUI = new ConfiguracionGUI();
+      private Posibles posiblesFrame = new Posibles();
+      private AcercaDe acercaFrame = new AcercaDe();
+      private Top10Frame top10 = new Top10Frame();
       
       private boolean started = false; // indica si ya empezó el juego.
     boolean win = false; // indica si ya se ganó el juego
@@ -121,7 +133,7 @@ public class Programa3 {
             }
             fila = calcularFila(fila);
             columna = calcularColumna(columna);
-            int numero = Integer.parseInt(getSelectedButtonText());
+            String numero = getSelectedButtonText();
             javax.swing.JButton [][] casillas = juego.getCasillas();
             for (javax.swing.JButton buttonIter : casillas[fila]){
                   System.out.println("hola");
@@ -318,7 +330,7 @@ public class Programa3 {
                               }                       
                   }
             }
-            win = juego.añadirNumero(getSelectedButtonText(), fila, columna);
+            win = juego.añadirNumero(numero, fila, columna);
             if (win){
                   JOptionPane.showMessageDialog(jugarFrame, "JUEGO TERMINADO CON ÉXITO");
                   RegisterWin();
@@ -1668,7 +1680,7 @@ public class Programa3 {
                         resetTablero(Configuracion.getTamaño());
                         establecerPartida();
                         establecerTablero(Configuracion.getTamaño());
-                        juego = new Juego(partida, jugarFrame.getNombreTXT().getText(), casillasPorTablero.get(Configuracion.getTamaño())); // se crea el nuevo juego
+                        juego = new Juego(jugarFrame.getNombreTXT().getText(), casillasPorTablero.get(Configuracion.getTamaño())); // se crea el nuevo juego
                         if (Configuracion.getReloj().equals("Sí") || Configuracion.getReloj().equals("Timer")){
                               stopwatch.start();
                         }
@@ -1788,11 +1800,14 @@ public class Programa3 {
             setButtonPanel();
             
             
-            
+            count = 0;
+            jugarFrame.getHorasTXT().setText("0");
+            jugarFrame.getMinutosTXT().setText("0");
+            jugarFrame.getSegundosTXT().setText("0");
             if (Configuracion.getReloj().equals("No")){ //  si no hay un reloj, se quita de la pantalla
                   jugarFrame.getRelojFrame().setVisible(false);
              } else if (Configuracion.getReloj().equals("Timer")) { // si hay un timer, se deja editar el tiempo
-                  
+                  count = count = Reloj.getHorasInt() * 3600 + Reloj.getMinutosInt() * 60 + Reloj.getSegundosInt();
                   jugarFrame.getHorasTXT().setEditable(true);
                   jugarFrame.getMinutosTXT().setEditable(true);
                   jugarFrame.getSegundosTXT().setEditable(true);
@@ -1802,6 +1817,8 @@ public class Programa3 {
             }
             
             establecerPartida();
+            jugarFrame.getIniciarJuego().setEnabled(true);
+            jugarFrame.getNombreTXT().setEditable(true);
             jugarFrame.getGuardarJuego().setEnabled(false);
             jugarFrame.getRehacerJugada().setEnabled(false);
             jugarFrame.getBorrarJugada().setEnabled(false);
@@ -1811,13 +1828,69 @@ public class Programa3 {
             
       }
       
-      public void configurar(){
-            
-      }
       
-      public void acerca(){
-            
+      private String getSizeButton() {
+        for (Enumeration<AbstractButton> buttons = configGUI.obtainSizeButton().getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
+    }
+      
+      public void configurar(){
+            niveles.put("Fácil", configGUI.getFacilButton());
+        niveles.put("Intermedio", configGUI.getIntermedioButton());
+        niveles.put("Difícil", configGUI.getDificilButton());
+        relojes.put("Sí", configGUI.getSiButton());
+        relojes.put("Timer", configGUI.getTimerButton());
+        relojes.put("No", configGUI.getNoButton());
+        lados.put(false, configGUI.getIzquierdaButton());
+        lados.put(true, configGUI.getDerechaButton());
+        tamaños.put(5, configGUI.getCincoButton());
+        tamaños.put(6,configGUI.getSeisButton());
+        tamaños.put(7, configGUI.getSieteButton());
+        tamaños.put(8, configGUI.getOchoButton());
+        tamaños.put(9, configGUI.getNueveButton());
+        System.out.println(Configuracion.getNivel());
+        if (!Configuracion.getNivel().equals("Multinivel")){
+              niveles.get(Configuracion.getNivel()).setSelected(true); // obtenemos el objeto del boton respectivo al nivel y lo activamos.
+        } else {
+              configGUI.getMultinivelButton().setSelected(true);
+        }
+        
+        relojes.get(Configuracion.getReloj()).setSelected(true); // obtenemos el objeto del boton respectivo al reloj y lo activamos.
+        lados.get(Configuracion.getLado()).setSelected(true); // obtenemos el objeto del boton respectivo al lado y lo activamos.
+        tamaños.get(Configuracion.getTamaño()).setSelected(true);
+        if (Configuracion.getReloj().equals("No")){
+            configGUI.getRelojFrame().setVisible(false);
+        } else if (Configuracion.getReloj().equals("Sí")){
+            configGUI.getRelojFrame().setVisible(true);
+            configGUI.getHorasField().setEditable(false);
+            configGUI.getMinutosField().setEditable(false);
+            configGUI.getSegundosField().setEditable(false);
+            configGUI.getHorasField().setText("0");
+            configGUI.getMinutosField().setText("0");
+            configGUI.getSegundosField().setText("0");
+        } else {
+            configGUI.getHorasField().setEditable(true);
+            configGUI.getMinutosField().setEditable(true);
+            configGUI.getSegundosField().setEditable(true);
+            configGUI.getHorasField().setText(Reloj.getHoras());
+            configGUI.getMinutosField().setText(Reloj.getMinutos());
+            configGUI.getSegundosField().setText(Reloj.getSegundos());
+        }
+        nivel = Configuracion.getNivel();
+        reloj = Configuracion.getReloj();
+        lado = Configuracion.getLado();
       }
+      /**
+     * Función que llena la lista del Top 10 del nivel fácil
+     */   
+     
       public void IniciarJuego(){
             if (!started) { // si no ha empezado el juego
                   if (jugarFrame.getNombreTXT().getText().length() < 1 || jugarFrame.getNombreTXT().getText().length() > 20){ // se valida el nombre del jugador
@@ -1826,7 +1899,7 @@ public class Programa3 {
                       return;
                   }
                   started = true; // se empieza 
-                  juego = new Juego(partida, jugarFrame.getNombreTXT().getText(), 
+                  juego = new Juego(jugarFrame.getNombreTXT().getText(), 
                           casillasPorTablero.get(Configuracion.getTamaño())); // se crea el nuevo juego
 
                   jugarFrame.getNombreTXT().setEditable(false);
@@ -1861,13 +1934,13 @@ public class Programa3 {
       }
               
       public void init(){
-            Partida.leerPartidas();
-            Marca.createHashMap();
+            
             menu.setVisible(true);
             menu.addJugarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                   menu.dispose();
+                // jugarFrame = new JugarFrame();
                 jugarFrame.setVisible(true);
                 jugar();
             }
@@ -1877,8 +1950,9 @@ public class Programa3 {
             @Override
             public void actionPerformed(ActionEvent evt) {
                   menu.dispose();
-                ConfiguracionGUI config = new ConfiguracionGUI();
-        config.setVisible(true);
+               // configGUI = new ConfiguracionGUI();
+            configGUI.setVisible(true);
+            configurar();
             }
             });
             
@@ -1887,7 +1961,7 @@ public class Programa3 {
             public void actionPerformed(ActionEvent evt) {
                   if (Desktop.isDesktopSupported()) { // se abre el archivo del manual de usuario
             try {
-                File myFile = new File("src\\main\\java\\poo\\programa3\\modelo\\programa2_manual_de_usuario.pdf");
+                File myFile = new File("src\\main\\java\\poo\\programa3\\modelo\\programa3_manual_de_usuario.pdf");
                 Desktop.getDesktop().open(myFile);
             } catch (IOException ex) {
                   JOptionPane.showMessageDialog(menu, "NO SE PUDO ABRIR LA AYUDA.", 
@@ -1901,8 +1975,7 @@ public class Programa3 {
             @Override
             public void actionPerformed(ActionEvent evt) {
                   menu.dispose();
-                  AcercaDe window = new AcercaDe();
-                  window.setVisible(true);
+                  acercaFrame.setVisible(true);
             }
             });
             
@@ -1910,13 +1983,14 @@ public class Programa3 {
             @Override
             public void actionPerformed(ActionEvent evt) {
                   menu.dispose();
+                  System.exit(0);
             }
+            
             });
             
             jugarFrame.addIniciarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                  System.out.println("Hola");
                   IniciarJuego();
             }
             });
@@ -1997,8 +2071,7 @@ public class Programa3 {
             jugarFrame.addTop10ActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                  Top10Frame window = new Top10Frame();
-                  window.setVisible(true);
+                  top10.setVisible(true);
             }
             });
             
@@ -2054,7 +2127,8 @@ public class Programa3 {
             jugarFrame.addCargarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                  if (started){ // si ya hay se está jugando, no se deja cargar un juevo
+                  // TODO add your handling code here:
+        if (started){ // si ya hay se está jugando, no se deja cargar un juevo
               JOptionPane.showMessageDialog(jugarFrame, "Ya hay una partida en juego. Termine su partida y vuelva a intentar.", 
                 "Error", JOptionPane.ERROR_MESSAGE);
               return;
@@ -2085,6 +2159,7 @@ public class Programa3 {
             Configuracion.setTamaño(size);
             resetTablero(Configuracion.getTamaño()); // se borra el tablero
             establecerTablero(Configuracion.getTamaño()); // se vuelve a establecer el tablero con la partida recuperada
+            setButtonPanel();
             for (int casilla = 0; casilla < size * size; casilla++){ // se vuelven a poner los valores de las casillas
                 casillasPorTablero.get(Configuracion.getTamaño())[casilla / size][casilla % size].setText(lineas.get(12 + casilla));
             }
@@ -2137,8 +2212,7 @@ public class Programa3 {
             jugarFrame.addPistaActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                  Posibles window = new Posibles();
-                  window.setVisible(true);
+                  posiblesFrame.setVisible(true);
             }
             });
             
@@ -2749,11 +2823,348 @@ public class Programa3 {
                       putNumber(8,8);
             }
             });
+            
+            acercaFrame.addCerrarActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      acercaFrame.dispose();
+                      menu.setVisible(true);
+            }
+            });
+            
+            top10.addCerrarActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      top10.dispose();
+            }
+            });
+            
+            top10.addClickActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      top10.FillFacilListModel(Integer.parseInt((String)top10.getSizeBox().getSelectedItem()));
+            top10.FillIntermedioListModel(Integer.parseInt((String)top10.getSizeBox().getSelectedItem()));
+            top10.FillDificilListModel(Integer.parseInt((String)top10.getSizeBox().getSelectedItem()));
+            }
+            });
+            
+            configGUI.addFacilActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      nivelConfig = "Fácil";
+            }
+            });
+            
+            configGUI.addIntermedioActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      nivelConfig = "Intermedio";
+            }
+            });
+            
+            configGUI.addDificilActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      nivelConfig = "Difícil";
+            }
+            });
+            
+            configGUI.addSiActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      reloj = "Sí";
+                  configGUI.getRelojFrame().setVisible(true);
+                  configGUI.getHorasField().setEditable(false);
+                  configGUI.getMinutosField().setEditable(false);
+                  configGUI.getSegundosField().setEditable(false);
+                  configGUI.getHorasField().setText("0");
+                  configGUI.getMinutosField().setText("0");
+                  configGUI.getSegundosField().setText("0");
+            }
+            });
+            
+            configGUI.addTimerActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      reloj = "Timer";
+                        configGUI.getRelojFrame().setVisible(true);
+                        configGUI.getHorasField().setEditable(true);
+                        configGUI.getMinutosField().setEditable(true);
+                        configGUI.getSegundosField().setEditable(true);
+            }
+            });
+            
+            configGUI.addNoActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      reloj = "No";
+                  configGUI.getRelojFrame().setVisible(false);
+            }
+            });
+            
+            configGUI.addIzquierdaActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      lado = false;
+            }
+            });
+            
+            configGUI.addDerechaActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      lado = true;
+            }
+            });
+            
+            configGUI.addSaveActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                      if (!configGUI.getNoButton().isSelected()){
+            String horas = configGUI.getHorasField().getText();
+            String minutos = configGUI.getMinutosField().getText();
+            String segundos = configGUI.getSegundosField().getText();
+                if (configGUI.getTimerButton().isSelected()){
+                // validación de las horas, minutos y segundos
+                try{
+                    Reloj.validarEntrada(horas, 0, 2);
+                } catch (NumberFormatException e){
+                    JOptionPane.showMessageDialog(configGUI, "Las horas deben ser un número.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } catch (RangeException e){
+                    JOptionPane.showMessageDialog(configGUI, "Las horas deben ser del 0 al 2.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                try{
+                    Reloj.validarEntrada(minutos, 0, 59);
+                } catch (NumberFormatException e){
+                    JOptionPane.showMessageDialog(configGUI, "Los minutos deben ser un número.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } catch (RangeException e){
+                    JOptionPane.showMessageDialog(configGUI, "Los minutos deben ser del 0 al 59.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                try{
+                    Reloj.validarEntrada(segundos, 0, 59);
+                } catch (NumberFormatException e){
+                    JOptionPane.showMessageDialog(configGUI, "Los segundos deben ser un número.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } catch (RangeException e){
+                    JOptionPane.showMessageDialog(configGUI, "Los segundos deben ser del 0 al 59.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // si los tres son 0, enviamos un error
+                if (horas.equals("0") && minutos.equals("0") && segundos.equals("0")){
+                    JOptionPane.showMessageDialog(configGUI, "Al menos un valor no debe ser 0.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+            Reloj.setHoras(horas);
+            Reloj.setMinutos(minutos);
+            Reloj.setSegundos(segundos);   
+        }
+        
+        Configuracion.setNivel(nivelConfig);
+        Configuracion.setReloj(reloj);
+        Configuracion.setLado(lado);
+        Configuracion.setTamaño(Integer.parseInt(getSizeButton()));
+        JOptionPane.showMessageDialog(configGUI, "¡Configuración guardada con éxito!");
+        configGUI.dispose();
+        menu.setVisible(true);
+            }
+            });
+            
+            configGUI.addCancelActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                  configGUI.dispose();
+                        menu.setVisible(true);
+            }
+            });
+            
+            configGUI.addMultinivelActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                  nivelConfig = "Multinivel";
+            }
+            });
+            
+            posiblesFrame.addFindActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                  int fila = 0;
+            int columna = 0;
+            try {
+                  fila = Integer.valueOf(posiblesFrame.getFilaTXT().getText());
+                  columna = Integer.valueOf(posiblesFrame.getColumnaTXT().getText());
+                  if (fila > Configuracion.getTamaño() || fila < 1 || columna > Configuracion.getTamaño() || columna < 1) {
+                        throw new ArithmeticException("message");
+                  }
+            }
+            catch (Exception e){
+                  JOptionPane.showMessageDialog(posiblesFrame, "ESOS NÚMEROS NO SON VÁLIDOS.", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+                  return;
+            }
+            fila -= 1;
+            columna -= 1;
+            
+            // Check columna
+
+            javax.swing.JButton [][] casillas = juego.getCasillas();
+            ArrayList<Integer> posibles = new ArrayList<>();
+            for (int i = 0; i < Configuracion.getTamaño(); i++){
+                  if (!casillas[fila][i].getText().equals("")){
+                        posibles.add(Integer.valueOf(casillas[fila][i].getText()));
+                  }
+                  if (!casillas[i][columna].getText().equals("")){
+                        posibles.add(Integer.valueOf(casillas[i][columna].getText()));
+                  }
+            }
+            String texto = "Las jugadas posibles son: ";
+            OUTER:
+            for (int j = 1; j <= Configuracion.getTamaño(); j++){
+                  for (Integer num : posibles){
+                        if (j == num){
+                              continue OUTER; 
+                        }
+                  }
+                  int i = 0;
+                  for (; i < partida.getOperaciones().size(); i ++) {
+                  int colCompare;
+                  int colCompare2;
+                  switch(partida.getOperaciones().get(i).getTipo()){
+                        case 'a':
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
+                                    try {
+                                          colCompare = j;
+                                          colCompare2 = Integer.valueOf(casillas[fila][columna+1].getText());
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna - 1 && partida.getOperaciones().get(i).getIndiceFila() == fila) {
+                                    try {
+                                          colCompare = Integer.valueOf(casillas[fila][columna-1].getText());
+                                          colCompare2 = j;
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else {
+                                    continue;
+                              }
+                              if (!(colCompare > colCompare2)) {
+                                    continue OUTER;
+                              } else {
+                                    continue;
+                              }
+                     case 'b':
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
+                                    try {
+                                          colCompare = j;
+                                          colCompare2 = Integer.valueOf(casillas[fila][columna+1].getText());
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna - 1 && partida.getOperaciones().get(i).getIndiceFila() == fila) {
+                                    try {
+                                          colCompare = Integer.valueOf(casillas[fila][columna-1].getText());
+                                          colCompare2 = j;
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else {
+                                    continue;
+                              }
+                              if (!(colCompare < colCompare2)) {
+                                    continue OUTER;
+                              } else {
+                                    continue;
+                              }
+                    case 'y':
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
+                                    try {
+                                          colCompare = j;
+                                          colCompare2 = Integer.valueOf(casillas[fila+1][columna].getText());
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila -1) {
+                                    try {
+                                          colCompare = Integer.valueOf(casillas[fila-1][columna].getText());
+                                          colCompare2 = j;
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else {
+                                    continue;
+                              }
+                              if (!(colCompare > colCompare2)) {
+                                    continue OUTER;
+                              } else {
+                                    continue;
+                              }
+                      case 'z':
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
+                                    try {
+                                          colCompare = j;
+                                          colCompare2 = Integer.valueOf(casillas[fila+1][columna].getText());
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila -1) {
+                                    try {
+                                          colCompare = Integer.valueOf(casillas[fila-1][columna].getText());
+                                          colCompare2 = j;
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else {
+                                    continue;
+                              }
+                              if (!(colCompare < colCompare2)) {
+                                    continue OUTER;
+                              } else {
+                                    continue;
+                              }                       
+                  }
+            }
+                  texto += " " + j;
+            }
+            
+            JOptionPane.showMessageDialog(posiblesFrame, texto); 
+            posiblesFrame.dispose();
+            }
+            });
+            
+            posiblesFrame.addCerrarActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                  posiblesFrame.dispose();
+            }
+            });
+            
       }
       
       @SuppressWarnings("CallToThreadDumpStack")
     public static void main(String[] args) {
           try {
+                Partida.leerPartidas();
+            Marca.createHashMap();
             new Programa3().init();
           }
           catch (Exception e) {

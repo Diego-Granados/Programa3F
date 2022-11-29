@@ -4,8 +4,11 @@
  */
 package poo.programa3.vista;
 
+import java.awt.event.ActionListener;
 import poo.programa3.modelo.Marca;
+import poo.programa3.modelo.Configuracion;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 
 /**
  * Ventana para el Top 10
@@ -35,37 +38,47 @@ public class Top10Frame extends javax.swing.JFrame {
             IntermedioListTiempo.setModel(IntermedioListTiempoModel);
             DificilListTiempoModel = new DefaultListModel();
             DificilListTiempo.setModel(DificilListTiempoModel);
-            FillFacilListModel();
-            FillIntermedioListModel();
-            FillDificilListModel();
-      }
+            FillFacilListModel(Configuracion.getTamaño());
+            FillIntermedioListModel(Configuracion.getTamaño());
+            FillDificilListModel(Configuracion.getTamaño());
+            sizeBox.addItem("5");
+            sizeBox.addItem("6");
+            sizeBox.addItem("7");
+            sizeBox.addItem("8");
+            sizeBox.addItem("9");
+            sizeBox.setSelectedItem(Configuracion.getTamaño() + "");
+        }
       
     /**
      * Función que llena la lista del Top 10 del nivel fácil
+     * @param size
      */
-    public void FillFacilListModel (){
-            if (FacilListNombreModel != null){
-               FacilListNombreModel.removeAllElements();
-               FacilListTiempoModel.removeAllElements();
-          }
-            int i = 0;
-          for (Marca marca : Marca.marcas.get("Fácil")){
-               FacilListNombreModel.addElement((i+1) + "- " + marca.getNombre());
-               FacilListTiempoModel.addElement(Marca.convertToString(marca.getTiempo()));
-               i++;
-          }
+    public void FillFacilListModel (int size){
+        if (FacilListNombreModel != null){
+           FacilListNombreModel.removeAllElements();
+           FacilListTiempoModel.removeAllElements();
+        } else {
+            return;
+        }
+        int i = 0;
+        for (Marca marca : Marca.marcasMap.get(size).get("Fácil")){
+           FacilListNombreModel.addElement((i+1) + "- " + marca.getNombre());
+           FacilListTiempoModel.addElement(Marca.convertToString(marca.getTiempo()));
+           i++;
+        }
       }
       
     /**
      * Función que llena la lista del Top 10 del nivel Intermedio
+     * @param size
      */
-    public void FillIntermedioListModel (){
+    public void FillIntermedioListModel (int size){
             if (IntermedioListNombreModel != null){
                IntermedioListNombreModel.removeAllElements();
                IntermedioListTiempoModel.removeAllElements();
           }
             int i = 0;
-          for (Marca marca : Marca.marcas.get("Intermedio")){
+          for (Marca marca : Marca.marcasMap.get(size).get("Intermedio")){
                IntermedioListNombreModel.addElement((i+1) + "- " + marca.getNombre());
                IntermedioListTiempoModel.addElement(Marca.convertToString(marca.getTiempo()));
                i++;
@@ -74,14 +87,15 @@ public class Top10Frame extends javax.swing.JFrame {
       
     /**
      * Función que llena la lista del Top 10 del nivel difícil
+     * @param size
      */
-    public void FillDificilListModel (){
+    public void FillDificilListModel (int size){
             if (DificilListNombreModel != null){
                DificilListNombreModel.removeAllElements();
                DificilListTiempoModel.removeAllElements();
             }
             int i = 0;
-            for (Marca marca : Marca.marcas.get("Difícil")){
+            for (Marca marca : Marca.marcasMap.get(size).get("Difícil")){
                DificilListNombreModel.addElement((i+1) + "- " + marca.getNombre());
                DificilListTiempoModel.addElement(Marca.convertToString(marca.getTiempo()));
                i++;
@@ -114,6 +128,8 @@ public class Top10Frame extends javax.swing.JFrame {
             IntermedioListTiempo = new javax.swing.JList<>();
             jScrollPane6 = new javax.swing.JScrollPane();
             DificilListTiempo = new javax.swing.JList<>();
+            sizeBox = new javax.swing.JComboBox<>();
+            jLabel5 = new javax.swing.JLabel();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
             getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -125,7 +141,7 @@ public class Top10Frame extends javax.swing.JFrame {
             getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, -1, -1));
 
             jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-            jLabel2.setText("NIVEL FÁCIL:");
+            jLabel2.setText("Tamaño de cuadrícula");
             getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
             jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
@@ -153,11 +169,6 @@ public class Top10Frame extends javax.swing.JFrame {
 
             CerrarButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
             CerrarButton.setText("Cerrar");
-            CerrarButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        CerrarButtonActionPerformed(evt);
-                  }
-            });
             getContentPane().add(CerrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 100, 50));
 
             FacilListTiempo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
@@ -175,13 +186,25 @@ public class Top10Frame extends javax.swing.JFrame {
 
             getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 440, 130, 160));
 
+            getContentPane().add(sizeBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
+
+            jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+            jLabel5.setText("NIVEL FÁCIL:");
+            getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+
             pack();
       }// </editor-fold>//GEN-END:initComponents
 
-      private void CerrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarButtonActionPerformed
-            // TODO add your handling code here:
-            dispose();
-      }//GEN-LAST:event_CerrarButtonActionPerformed
+      public void addCerrarActionListener(ActionListener a){
+                             CerrarButton.addActionListener(a);
+     }
+      
+      public void addClickActionListener(ActionListener a){
+                             sizeBox.addActionListener(a);
+     }
+      public JComboBox<String> getSizeBox() {
+            return sizeBox;
+      }
 
       /**
        * @param args the command line arguments
@@ -230,11 +253,13 @@ public class Top10Frame extends javax.swing.JFrame {
       private javax.swing.JLabel jLabel2;
       private javax.swing.JLabel jLabel3;
       private javax.swing.JLabel jLabel4;
+      private javax.swing.JLabel jLabel5;
       private javax.swing.JScrollPane jScrollPane1;
       private javax.swing.JScrollPane jScrollPane2;
       private javax.swing.JScrollPane jScrollPane3;
       private javax.swing.JScrollPane jScrollPane4;
       private javax.swing.JScrollPane jScrollPane5;
       private javax.swing.JScrollPane jScrollPane6;
+      private javax.swing.JComboBox<String> sizeBox;
       // End of variables declaration//GEN-END:variables
 }

@@ -9,21 +9,24 @@ package poo.programa3.vista;
  *
  * @author dandi
  */
-import poo.programa3.modelo.Juego;
-import poo.programa3.modelo.Configuracion;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import poo.programa3.modelo.*;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class Posibles extends javax.swing.JFrame {
 
       /**
        * Creates new form Posibles
+     * @param pJuego
        */
       public Posibles() {
             initComponents();
             this.setLocationRelativeTo(null);
       }
-
       /**
        * This method is called from within the constructor to initialize the
        * form. WARNING: Do NOT modify this code. The content of this method is
@@ -39,6 +42,7 @@ public class Posibles extends javax.swing.JFrame {
             FindButton = new javax.swing.JButton();
             FilaTXT = new javax.swing.JTextField();
             ColumnaTXT = new javax.swing.JTextField();
+            CerrarButtonPos = new javax.swing.JButton();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,15 +56,12 @@ public class Posibles extends javax.swing.JFrame {
             jLabel3.setText("Columna");
 
             FindButton.setText("Buscar");
-            FindButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        FindButtonActionPerformed(evt);
-                  }
-            });
 
             FilaTXT.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
 
             ColumnaTXT.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+
+            CerrarButtonPos.setText("Cerrar");
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
@@ -74,7 +75,9 @@ public class Posibles extends javax.swing.JFrame {
                                     .addGap(64, 64, 64)
                                     .addComponent(FilaTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                          .addComponent(jLabel3)
+                                          .addComponent(CerrarButtonPos))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -100,58 +103,46 @@ public class Posibles extends javax.swing.JFrame {
                               .addComponent(jLabel3)
                               .addComponent(ColumnaTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(FindButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                              .addComponent(FindButton)
+                              .addComponent(CerrarButtonPos))
                         .addContainerGap(22, Short.MAX_VALUE))
             );
 
             pack();
       }// </editor-fold>//GEN-END:initComponents
 
-      private void FindButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindButtonActionPerformed
-            // TODO add your handling code here:
-            int fila = 0;
-            int columna = 0;
-            try {
-                  fila = Integer.valueOf(FilaTXT.getText());
-                  columna = Integer.valueOf(ColumnaTXT.getText());
-                  if (fila > Configuracion.getTamaño() || fila < 1 || columna > Configuracion.getTamaño() || columna < 1) {
-                        throw new ArithmeticException("message");
-                  }
-            }
-            catch (Exception e){
-                  JOptionPane.showMessageDialog(this, "ESOS NÚMEROS NO SON VÁLIDOS.", 
-                "Error", JOptionPane.ERROR_MESSAGE);
-                  return;
-            }
-            fila -= 1;
-            columna -= 1;
-            
-            // Check columna
-            Juego juego = JugarFrame.getJuego();
-            javax.swing.JButton [][] casillas = juego.getCasillas();
-            ArrayList<Integer> posibles = new ArrayList<>();
-            for (int i = 0; i < Configuracion.getTamaño(); i++){
-                  if (!casillas[fila][i].getText().equals("")){
-                        posibles.add(Integer.valueOf(casillas[fila][i].getText()));
-                  }
-                  if (!casillas[i][columna].getText().equals("")){
-                        posibles.add(Integer.valueOf(casillas[i][columna].getText()));
-                  }
-            }
-            String texto = "Las jugadas posibles son: ";
-            OUTER:
-            for (int i = 1; i <= Configuracion.getTamaño(); i++){
-                  for (Integer num : posibles){
-                        if (i == num){
-                              continue OUTER; 
-                        }
-                  }
-                  texto += " " + i;
-            }
-            
-            JOptionPane.showMessageDialog(this, texto); 
-            dispose();
-      }//GEN-LAST:event_FindButtonActionPerformed
+       public void addFindActionListener(ActionListener a){
+                             FindButton.addActionListener(a);
+     }
+       
+       public void addCerrarActionListener(ActionListener a){
+                             CerrarButtonPos.addActionListener(a);
+     }
+       
+      public JTextField getColumnaTXT() {
+            return ColumnaTXT;
+      }
+
+      public JTextField getFilaTXT() {
+            return FilaTXT;
+      }
+
+      public JButton getFindButton() {
+            return FindButton;
+      }
+
+      public JLabel getjLabel1() {
+            return jLabel1;
+      }
+
+      public JLabel getjLabel2() {
+            return jLabel2;
+      }
+
+      public JLabel getjLabel3() {
+            return jLabel3;
+      }
 
       /**
        * @param args the command line arguments
@@ -189,6 +180,7 @@ public class Posibles extends javax.swing.JFrame {
       }
 
       // Variables declaration - do not modify//GEN-BEGIN:variables
+      private javax.swing.JButton CerrarButtonPos;
       private javax.swing.JTextField ColumnaTXT;
       private javax.swing.JTextField FilaTXT;
       private javax.swing.JButton FindButton;

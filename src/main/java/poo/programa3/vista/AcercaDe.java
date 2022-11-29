@@ -4,6 +4,8 @@
  */
 package poo.programa3.vista;
 
+import java.awt.event.ActionListener;
+
 /**
  * Pantalla para el acerca de del programa
  * @author Diego Granados Retana
@@ -69,20 +71,15 @@ public class AcercaDe extends javax.swing.JFrame {
             jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, -1));
 
             jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-            jLabel6.setText("Versión: 1.0");
+            jLabel6.setText("Versión: 2.0");
             jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
             jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-            jLabel7.setText("Fecha de creación: 7 de noviembre, 2022");
+            jLabel7.setText("Fecha de creación: 30 de noviembre, 2022");
             jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
 
             CerrarButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
             CerrarButton.setText("Cerrar");
-            CerrarButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        CerrarButtonActionPerformed(evt);
-                  }
-            });
             jPanel1.add(CerrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, -1, -1));
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,13 +96,9 @@ public class AcercaDe extends javax.swing.JFrame {
             pack();
       }// </editor-fold>//GEN-END:initComponents
 
-      private void CerrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarButtonActionPerformed
-            // TODO add your handling code here:
-            dispose();
-          Menu menu = new Menu();
-          menu.setVisible(true);
-      }//GEN-LAST:event_CerrarButtonActionPerformed
-
+      public void addCerrarActionListener(ActionListener a){
+                             CerrarButton.addActionListener(a);
+     }
       /**
        * @param args the command line arguments
        */
