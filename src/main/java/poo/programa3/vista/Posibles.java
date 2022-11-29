@@ -10,17 +10,12 @@ package poo.programa3.vista;
  * @author dandi
  */
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
-import poo.programa3.modelo.*;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class Posibles extends javax.swing.JFrame {
 
-       private Juego juego;
-       private Partida partida;
       /**
        * Creates new form Posibles
      * @param pJuego
@@ -28,8 +23,6 @@ public class Posibles extends javax.swing.JFrame {
       public Posibles() {
             initComponents();
             this.setLocationRelativeTo(null);
-            juego = JugarFrame.getJuego();
-            partida = juego.getPartida();
       }
       /**
        * This method is called from within the constructor to initialize the
