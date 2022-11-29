@@ -31,9 +31,9 @@ import javax.swing.Timer;
  */
 public class Programa3 {
       
-      private String nivelConfig;
-    private String reloj;
-    private boolean lado;
+      private String nivelConfig = "Fácil";
+    private String reloj = "Sí";
+    private boolean lado = true;
     private HashMap<String, javax.swing.JRadioButton> niveles = new HashMap<>();
     private HashMap<String, javax.swing.JRadioButton> relojes = new HashMap<>();
     private HashMap<Boolean, javax.swing.JRadioButton> lados = new HashMap<>();
@@ -136,7 +136,6 @@ public class Programa3 {
             String numero = getSelectedButtonText();
             javax.swing.JButton [][] casillas = juego.getCasillas();
             for (javax.swing.JButton buttonIter : casillas[fila]){
-                  System.out.println("hola");
                   if (buttonIter.getText().equals(numero)){
                         if ("Sí".equals(Configuracion.getReloj()) || "Timer".equals(Configuracion.getReloj())){
                               stopwatch.stop();
@@ -383,7 +382,6 @@ public class Programa3 {
         ArrayList<javax.swing.JLabel> labelsVerticales = labelsVerticalesPorTablero.get(size);
         
         for(Operacion desigualdad : partida.getOperaciones()){
-            System.out.println(desigualdad.getIndiceFila() + " " + desigualdad.getIndiceColumna());
             switch(desigualdad.getTipo()){
                 case 'a': // pone los labels con el símbolo correcto
                     labelsHorizontales.get((size - 1) * desigualdad.getIndiceFila() + desigualdad.getIndiceColumna()).setText(">");
@@ -1855,7 +1853,6 @@ public class Programa3 {
         tamaños.put(7, configGUI.getSieteButton());
         tamaños.put(8, configGUI.getOchoButton());
         tamaños.put(9, configGUI.getNueveButton());
-        System.out.println(Configuracion.getNivel());
         if (!Configuracion.getNivel().equals("Multinivel")){
               niveles.get(Configuracion.getNivel()).setSelected(true); // obtenemos el objeto del boton respectivo al nivel y lo activamos.
         } else {
@@ -1898,6 +1895,30 @@ public class Programa3 {
                             "Error", JOptionPane.ERROR_MESSAGE);
                       return;
                   }
+                  if (Configuracion.getReloj().equals("Timer")){ // si hay un timer, se empieza a correr
+                        
+                        try {
+                        count = Integer.valueOf(jugarFrame.getHorasTXT().getText()) * 3600 + Integer.valueOf(jugarFrame.getMinutosTXT().getText()) * 60 + Integer.valueOf(jugarFrame.getSegundosTXT().getText()); // se calcula la cantidad de segundos totales con los que se pueden jugar.
+                        } 
+                        
+                        catch (Exception e){
+                              JOptionPane.showMessageDialog(jugarFrame, "Ese tiempo no es válido.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                      return;
+                        }
+                        jugarFrame.getHorasTXT().setEditable(false);
+                        jugarFrame.getMinutosTXT().setEditable(false);
+                        jugarFrame.getSegundosTXT().setEditable(false);
+                        horassave = jugarFrame.getHorasTXT().getText();
+                        minutossave = jugarFrame.getMinutosTXT().getText();
+                        segundossave = jugarFrame.getSegundosTXT().getText();
+                        startTimer(jugarFrame);
+                  } else if (Configuracion.getReloj().equals("Sí")){ // si hay un reloj, se empieza a correr
+                        jugarFrame.getHorasTXT().setEditable(false);
+                        jugarFrame.getMinutosTXT().setEditable(false);
+                        jugarFrame.getSegundosTXT().setEditable(false);
+                        startClock(jugarFrame);
+                  }
                   started = true; // se empieza 
                   juego = new Juego(jugarFrame.getNombreTXT().getText(), 
                           casillasPorTablero.get(Configuracion.getTamaño())); // se crea el nuevo juego
@@ -1914,22 +1935,7 @@ public class Programa3 {
                   jugarFrame.getTerminarJuego().setEnabled(true);
                   jugarFrame.getBorrarJuego().setEnabled(true);
                   jugarFrame.getPistaButton().setEnabled(true);
-                  if (Configuracion.getReloj().equals("Timer")){ // si hay un timer, se empieza a correr
-                        jugarFrame.getHorasTXT().setEditable(false);
-                        jugarFrame.getMinutosTXT().setEditable(false);
-                        jugarFrame.getSegundosTXT().setEditable(false);
-                        horassave = jugarFrame.getHorasTXT().getText();
-                        minutossave = jugarFrame.getMinutosTXT().getText();
-                        segundossave = jugarFrame.getSegundosTXT().getText();
-
-                        count = Integer.valueOf(jugarFrame.getHorasTXT().getText()) * 3600 + Integer.valueOf(jugarFrame.getMinutosTXT().getText()) * 60 + Integer.valueOf(jugarFrame.getSegundosTXT().getText()); // se calcula la cantidad de segundos totales con los que se pueden jugar.
-                        startTimer(jugarFrame);
-                  } else if (Configuracion.getReloj().equals("Sí")){ // si hay un reloj, se empieza a correr
-                        jugarFrame.getHorasTXT().setEditable(false);
-                        jugarFrame.getMinutosTXT().setEditable(false);
-                        jugarFrame.getSegundosTXT().setEditable(false);
-                        startClock(jugarFrame);
-                  }
+                  
             }
       }
               
@@ -2148,7 +2154,6 @@ public class Programa3 {
             jugarFrame.getMinutosTXT().setText(lineas.get(4));
             jugarFrame.getSegundosTXT().setText(lineas.get(5));
             count = Integer.parseInt(jugarFrame.getHorasTXT().getText()) * 3600 + Integer.parseInt(jugarFrame.getMinutosTXT().getText()) * 60 + Integer.parseInt(jugarFrame.getSegundosTXT().getText()); // se calcula la cantidad de segundos totales con los que se pueden jugar.
-            System.out.println("SEGUNDOS " + lineas.get(5));
             Configuracion.setLado(Boolean.parseBoolean(lineas.get(6))); // se obtiene el lado del 
             moveButtonPanel();
             jugarFrame.getNombreTXT().setText(lineas.get(7)); // se vuelve a poner el nombre
@@ -2167,40 +2172,33 @@ public class Programa3 {
             IniciarJuego(); // se inicia el juego otra vez
             int indexList = 12 + size * size;
             // establecemos las pilas
-            System.out.println(lineas.get(indexList));
             Stack<String> temp = new Stack<>(); // pila temporal para luego conseguir el orden verdadero de la pila
             Stack<Jugada> jugadasStack = new Stack<>();
             while(!lineas.get(indexList).equals("J")){ // mientras no haya llegado al indicador de dónde termina la pila del final de la pila
-                System.out.println(lineas.get(indexList));
                 temp.push(lineas.get(indexList++)); // va metiendo a la pila temporal
             }
             while(!temp.isEmpty()){
                 // como la pila se fue leyendo de atras para adelante, debemos popear los elementos para agregarlos en orden
                 String[] entry = temp.pop().split(",");
-                System.out.println(entry[0] + " " + entry[1] + " " + entry[2]);
                 int fila = Integer.parseInt(entry[1]);
                 int columna = Integer.parseInt(entry[2]);
                 jugadasStack.push(new Jugada(fila, columna, entry[0]));
             }
-            System.out.println(lineas.get(indexList));
             juego.setJugadas(jugadasStack);
 
             indexList++;
             temp = new Stack<>();
             Stack<Jugada> rehacerStack = new Stack<>();
             while(!lineas.get(indexList).equals("R")){ // mientras no haya llegado al indicador de dónde termina la pila del final de la pila
-                System.out.println(lineas.get(indexList));
                 temp.push(lineas.get(indexList++)); // va metiendo a la pila temporal
             }
             while(!temp.isEmpty()){
                 // como la pila se fue leyendo de atras para adelante, debemos popear los elementos para agregarlos en orden
                 String[] entry = temp.pop().split(",");
-                System.out.println(entry[0] + " " + entry[1] + " " + entry[2]);
                 int fila = Integer.parseInt(entry[1]);
                 int columna = Integer.parseInt(entry[2]);
                 rehacerStack.push(new Jugada(fila, columna, entry[0]));
             }
-            System.out.println(lineas.get(indexList));
             juego.setRedoJugadas(rehacerStack);
         } catch (IOException e){
             JOptionPane.showMessageDialog(jugarFrame, "La partida no se pudo cargar porque el archivo no existe.", 

@@ -189,14 +189,12 @@ public class Partida {
                 Partida partida = new Partida();
                 for (Node des : desigualdades){ // leemos las desigualdades
                     String entry[] = des.getText().split(",");
-                    System.out.println(entry[0] + " " + entry[1] + " " + entry[2]);
                     partida.getOperaciones().add(new Operacion(entry[0].charAt(0), 
                             Integer.parseInt(entry[1]), Integer.parseInt(entry[2])));
                 }
                 List<Node> constantesNodos = partidaNodo.selectNodes("cons"); // leemos las constantes
                 for (Node constante : constantesNodos){
                     String entry[] = constante.getText().split(",");
-                    System.out.println(entry[0] + " " + entry[1] + " " + entry[2]);
                     partida.getConstantes().add(new Operacion(entry[0].charAt(0), 
                             Integer.parseInt(entry[1]), Integer.parseInt(entry[2])));
                 }

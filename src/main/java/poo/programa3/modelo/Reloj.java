@@ -96,9 +96,7 @@ public class Reloj {
     public static void validarEntrada(String entrada, int min, int max) throws NumberFormatException, RangeException{
         int number;
         try{
-            System.out.println(entrada);
             number = Integer.parseInt(entrada);
-            System.out.println(number);
         } catch (NumberFormatException e){
             throw new NumberFormatException();
         }
