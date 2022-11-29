@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
 /**
- *
+ * Clase que representa una marca del Top 10
  * @author dandi
  */
 public class Marca {
@@ -38,6 +38,9 @@ public class Marca {
     private static ArrayList<Marca> marcasDificiles9 = new ArrayList<>();
     private static HashMap<String,ArrayList<Marca>> marcas9 = new HashMap<>(); // Este hashmap se va a usar para obtener el arraylist dependiendo del nivel
     
+    /**
+     * HashMap que se usa para acceder a las listas de partidas de cada nivel y tamaño.
+     */
     public static HashMap<Integer, HashMap<String,ArrayList<Marca>>> marcasMap = new HashMap<>();
     /**
      * constructor de la clase
@@ -82,8 +85,8 @@ public class Marca {
                   String line = bf.readLine(); // se lee la primer línea
                   String[] niveles = new String[] {"Fácil", "Intermedio", "Difícil"};
                   
-                  for (int size = 5; size < 10 && line != null; size++){
-                      for (int nivel = 0; nivel < 3 && line != null; nivel++){
+                  for (int size = 5; size < 10 && line != null; size++){ // se itera sobre el tamaño
+                      for (int nivel = 0; nivel < 3 && line != null; nivel++){ // si itera sobre el nivel
                           for (int entrada = 0; entrada < 10 && line != null; entrada++){
                                 String [] partes = line.split(" "); // se divide en las partes, que son el nombre, el tiempo y el nivel
                                 // partes[0] = nombre, 1 = tiempo y 2 = nivel
