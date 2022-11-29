@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package poo.programa3.GUI;
+package poo.programa3.vista;
 
-import poo.programa3.Marca;
+import poo.programa3.modelo.Marca;
 import javax.swing.DefaultListModel;
 
 /**

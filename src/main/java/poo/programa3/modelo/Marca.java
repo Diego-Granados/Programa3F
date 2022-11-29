@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package poo.programa3;
+package poo.programa3.modelo;
 
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -60,7 +60,7 @@ public class Marca {
             marcas.put("Intermedio", marcasIntermedias);
             marcas.put("Difícil", marcasDificiles);
             try {
-                  BufferedReader bf = new BufferedReader(new FileReader("src\\main\\java\\poo\\programa3\\futoshiki2022top10.dat")); // se abre el archivo
+                  BufferedReader bf = new BufferedReader(new FileReader("src\\main\\java\\poo\\programa3\\modelo\\futoshiki2022top10.dat")); // se abre el archivo
                   
                   String line = bf.readLine(); // se lee la primer línea
                   while (line != null){ // se lee hasta que se termine el archivo

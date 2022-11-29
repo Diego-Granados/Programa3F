@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package poo.programa3.GUI;
+package poo.programa3.vista;
 import java.util.Enumeration;
 import java.util.HashMap;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
-import poo.programa3.Configuracion;
-import poo.programa3.Reloj;
-import poo.programa3.RangeException;
+import poo.programa3.modelo.Configuracion;
+import poo.programa3.modelo.Reloj;
+import poo.programa3.modelo.RangeException;
 
 /**
  * Esta ventana implementa la funcionalidad de la configuración

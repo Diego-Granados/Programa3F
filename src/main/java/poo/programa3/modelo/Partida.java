@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package poo.programa3;
+package poo.programa3.modelo;
 
 import java.util.ArrayList;
 
@@ -177,7 +177,7 @@ public class Partida {
         ordenesMap.put(9, ordenesPorNivel9);
         
         try{
-            File partidasFile = new File("src\\main\\java\\poo\\programa3\\futoshiki2022partidas.xml");
+            File partidasFile = new File("src\\main\\java\\poo\\programa3\\modelo\\futoshiki2022partidas.xml");
             SAXReader reader = new SAXReader();
             document = reader.read(partidasFile); // leemos el partido
             List<Node> nodosPartida = document.selectNodes("/partidasFutoshiki/partida"); // obtenemos una lista con los nodos que empiezan con partida.

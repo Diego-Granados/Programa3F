@@ -1,4 +1,4 @@
-package poo.programa3.GUI;
+package poo.programa3.vista;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -9,8 +9,9 @@ package poo.programa3.GUI;
  *
  * @author dandi
  */
+import poo.programa3.modelo.Juego;
+import poo.programa3.modelo.Configuracion;
 import javax.swing.JOptionPane;
-import poo.programa3.*;
 import java.util.ArrayList;
 
 public class Posibles extends javax.swing.JFrame {
