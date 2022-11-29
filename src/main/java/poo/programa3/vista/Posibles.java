@@ -10,9 +10,6 @@ package poo.programa3.vista;
  * @author dandi
  */
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
-import poo.programa3.modelo.*;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;

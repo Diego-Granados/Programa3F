@@ -4,10 +4,6 @@
  */
 package poo.programa3.vista;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.JOptionPane;
 import java.awt.event.*;
 
 /**

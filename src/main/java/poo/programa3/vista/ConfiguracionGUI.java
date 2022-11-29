@@ -4,13 +4,7 @@
  */
 package poo.programa3.vista;
 import java.awt.event.ActionListener;
-import java.util.Enumeration;
 import java.util.HashMap;
-import javax.swing.AbstractButton;
-import javax.swing.JOptionPane;
-import poo.programa3.modelo.Configuracion;
-import poo.programa3.modelo.Reloj;
-import poo.programa3.modelo.RangeException;
 
 /**
  * Esta ventana implementa la funcionalidad de la configuración

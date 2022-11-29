@@ -4,35 +4,12 @@
  */
 package poo.programa3.vista;
 
-import poo.programa3.modelo.Marca;
-import poo.programa3.modelo.Jugada;
-import poo.programa3.modelo.Configuracion;
-import poo.programa3.modelo.Operacion;
-import poo.programa3.modelo.Partida;
-import poo.programa3.modelo.Reloj;
-import poo.programa3.modelo.Juego;
-import java.awt.Component;
 import java.awt.event.*;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import javax.swing.AbstractButton;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Stack;
-import javax.accessibility.AccessibleContext;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
