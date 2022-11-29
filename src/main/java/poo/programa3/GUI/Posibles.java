@@ -15,12 +15,17 @@ import java.util.ArrayList;
 
 public class Posibles extends javax.swing.JFrame {
 
+       private Juego juego;
+       private Partida partida;
       /**
        * Creates new form Posibles
+     * @param pJuego
        */
       public Posibles() {
             initComponents();
             this.setLocationRelativeTo(null);
+            juego = JugarFrame.getJuego();
+            partida = juego.getPartida();
       }
 
       /**
@@ -139,13 +144,120 @@ public class Posibles extends javax.swing.JFrame {
             }
             String texto = "Las jugadas posibles son: ";
             OUTER:
-            for (int i = 1; i <= Configuracion.getTamaño(); i++){
+            for (int j = 1; j <= Configuracion.getTamaño(); j++){
                   for (Integer num : posibles){
-                        if (i == num){
+                        if (j == num){
                               continue OUTER; 
                         }
                   }
-                  texto += " " + i;
+                  int i = 0;
+                  for (; i < partida.getOperaciones().size(); i ++) {
+                  int colCompare;
+                  int colCompare2;
+                  switch(partida.getOperaciones().get(i).getTipo()){
+                        case 'a':
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
+                                    try {
+                                          colCompare = j;
+                                          colCompare2 = Integer.valueOf(casillas[fila][columna+1].getText());
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna - 1 && partida.getOperaciones().get(i).getIndiceFila() == fila) {
+                                    try {
+                                          colCompare = Integer.valueOf(casillas[fila][columna-1].getText());
+                                          colCompare2 = j;
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else {
+                                    continue;
+                              }
+                              if (!(colCompare > colCompare2)) {
+                                    continue OUTER;
+                              } else {
+                                    continue;
+                              }
+                     case 'b':
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
+                                    try {
+                                          colCompare = j;
+                                          colCompare2 = Integer.valueOf(casillas[fila][columna+1].getText());
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna - 1 && partida.getOperaciones().get(i).getIndiceFila() == fila) {
+                                    try {
+                                          colCompare = Integer.valueOf(casillas[fila][columna-1].getText());
+                                          colCompare2 = j;
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else {
+                                    continue;
+                              }
+                              if (!(colCompare < colCompare2)) {
+                                    continue OUTER;
+                              } else {
+                                    continue;
+                              }
+                    case 'y':
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
+                                    try {
+                                          colCompare = j;
+                                          colCompare2 = Integer.valueOf(casillas[fila+1][columna].getText());
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila -1) {
+                                    try {
+                                          colCompare = Integer.valueOf(casillas[fila-1][columna].getText());
+                                          colCompare2 = j;
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else {
+                                    continue;
+                              }
+                              if (!(colCompare > colCompare2)) {
+                                    continue OUTER;
+                              } else {
+                                    continue;
+                              }
+                      case 'z':
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
+                                    try {
+                                          colCompare = j;
+                                          colCompare2 = Integer.valueOf(casillas[fila+1][columna].getText());
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila -1) {
+                                    try {
+                                          colCompare = Integer.valueOf(casillas[fila-1][columna].getText());
+                                          colCompare2 = j;
+                                    }
+                                    catch (Exception e){
+                                          continue;
+                                    }
+                              } else {
+                                    continue;
+                              }
+                              if (!(colCompare < colCompare2)) {
+                                    continue OUTER;
+                              } else {
+                                    continue;
+                              }                       
+                  }
+            }
+                  texto += " " + j;
             }
             
             JOptionPane.showMessageDialog(this, texto); 

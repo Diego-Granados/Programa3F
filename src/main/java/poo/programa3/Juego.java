@@ -337,5 +337,8 @@ public class Juego {
     public void setRedoJugadas(Stack<Jugada> redoJugadas) {
         this.redoJugadas = redoJugadas;
     }
-      
+    
+    public Partida getPartida() {
+        return partida;
+    }
 }
