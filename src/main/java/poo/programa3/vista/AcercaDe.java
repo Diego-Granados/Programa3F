@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package poo.programa3.GUI;
+package poo.programa3.vista;
+
+import java.awt.event.ActionListener;
 
 /**
  * Pantalla para el acerca de del programa
@@ -99,13 +101,9 @@ public class AcercaDe extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-      private void CerrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarButtonActionPerformed
-            // TODO add your handling code here:
-            dispose();
-          Menu menu = new Menu();
-          menu.setVisible(true);
-      }//GEN-LAST:event_CerrarButtonActionPerformed
-
+      public void addCerrarActionListener(ActionListener a){
+                             CerrarButton.addActionListener(a);
+     }
       /**
        * @param args the command line arguments
        */

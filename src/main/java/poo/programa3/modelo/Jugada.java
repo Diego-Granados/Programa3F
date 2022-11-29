@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package poo.programa3;
+package poo.programa3.modelo;
 
 /**
  * Esta clase representa una jugada hecha por el jugador, con el número puesto en una fila y columna.

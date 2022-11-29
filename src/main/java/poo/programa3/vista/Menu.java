@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package poo.programa3.GUI;
+package poo.programa3.vista;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import java.awt.event.*;
 
 /**
  * Ventana para el menú principal
@@ -52,47 +53,22 @@ public class Menu extends javax.swing.JFrame {
             jugarButton.setBackground(new java.awt.Color(204, 255, 204));
             jugarButton.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
             jugarButton.setText("Jugar");
-            jugarButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        jugarButtonActionPerformed(evt);
-                  }
-            });
 
             ConfigurarButton.setBackground(new java.awt.Color(204, 204, 255));
             ConfigurarButton.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
             ConfigurarButton.setText("Configurar");
-            ConfigurarButton.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        ConfigurarButtonActionPerformed(evt);
-                  }
-            });
 
             jButton1.setBackground(new java.awt.Color(204, 255, 255));
             jButton1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
             jButton1.setText("Ayuda");
-            jButton1.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        jButton1ActionPerformed(evt);
-                  }
-            });
 
             jButton2.setBackground(new java.awt.Color(255, 204, 153));
             jButton2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
             jButton2.setText("Acerca de");
-            jButton2.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        jButton2ActionPerformed(evt);
-                  }
-            });
 
             jButton3.setBackground(new java.awt.Color(255, 102, 102));
             jButton3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
             jButton3.setText("Salir");
-            jButton3.addActionListener(new java.awt.event.ActionListener() {
-                  public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        jButton3ActionPerformed(evt);
-                  }
-            });
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
@@ -144,45 +120,27 @@ public class Menu extends javax.swing.JFrame {
             pack();
       }// </editor-fold>//GEN-END:initComponents
 
-    private void jugarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarButtonActionPerformed
-        // TODO add your handling code here:
-          dispose();
-          JugarFrame window = new JugarFrame();
-          window.setVisible(true);
-    }//GEN-LAST:event_jugarButtonActionPerformed
-
-    private void ConfigurarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfigurarButtonActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        ConfiguracionGUI config = new ConfiguracionGUI();
-        config.setVisible(true);
-    }//GEN-LAST:event_ConfigurarButtonActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if (Desktop.isDesktopSupported()) { // se abre el archivo del manual de usuario
-            try {
-                File myFile = new File("src\\main\\java\\poo\\programa3\\programa2_manual_de_usuario.pdf");
-                Desktop.getDesktop().open(myFile);
-            } catch (IOException ex) {
-                  JOptionPane.showMessageDialog(this, "NO SE PUDO ABRIR LA AYUDA.", 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-          dispose();
-          AcercaDe window = new AcercaDe();
-          window.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+      public void addJugarActionListener(ActionListener a){
+            jugarButton.addActionListener(a);
+      }
+      
+      public void addConfigurarActionListener(ActionListener a){
+            ConfigurarButton.addActionListener(a);
+      }
+      
+      public void addAyudaActionListener(ActionListener a){
+            jButton1.addActionListener(a);
+      }
+      
+      public void addAcercaActionListener(ActionListener a){
+            jButton2.addActionListener(a);
+      }
+      
+      public void addSalirActionListener(ActionListener a){
+            jButton3.addActionListener(a);
+      }
+      
+     /**/
     /**
      * @param args the command line arguments
      */

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package poo.programa3;
+package poo.programa3.modelo;
 
 /**
  * Esta clase tiene como objetivo representar las operaciones de una partida, al contener el caracter de la operación y 

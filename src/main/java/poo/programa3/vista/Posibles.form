@@ -32,7 +32,10 @@
                       <Component id="FilaTXT" min="-2" pref="144" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="CerrarButtonPos" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
@@ -67,7 +70,10 @@
                   <Component id="ColumnaTXT" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="FindButton" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="FindButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CerrarButtonPos" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -102,9 +108,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FindButtonActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="FilaTXT">
       <Properties>
@@ -118,6 +121,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Yu Gothic UI" size="12" style="0"/>
         </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="CerrarButtonPos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cerrar"/>
       </Properties>
     </Component>
   </SubComponents>
