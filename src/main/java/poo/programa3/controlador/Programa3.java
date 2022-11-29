@@ -380,7 +380,7 @@ public class Programa3 {
     private void establecerTablero(int size){
         ArrayList<javax.swing.JLabel> labelsHorizontales = labelsHorizontalesPorTablero.get(size);
         ArrayList<javax.swing.JLabel> labelsVerticales = labelsVerticalesPorTablero.get(size);
-        
+
         for(Operacion desigualdad : partida.getOperaciones()){
             switch(desigualdad.getTipo()){
                 case 'a': // pone los labels con el símbolo correcto
@@ -2142,8 +2142,13 @@ public class Programa3 {
         try{ // se abre el archivo
             List<String> lineas = Files.readAllLines(Paths.get("futoshiki2022juegoactual.dat"));
             Configuracion.setNivel(lineas.get(0)); // se establece el nivel
-            jugarFrame.getNivelTXT().setText(lineas.get(0)); 
+            jugarFrame.getNivelTXT().setText(lineas.get(0));
+            int size = Integer.parseInt(lineas.get(11));
+            Configuracion.setTamaño(size);
             partida = Partida.getPartidasPorNivel(Configuracion.getTamaño()).get(lineas.get(0)).get(Integer.parseInt(lineas.get(1))); // se obtiene la partida
+            
+            Configuracion.setReloj(lineas.get(2)); // se obtiene el reloj
+            reloj = lineas.get(2);
             // si se había guardado una partida con reloj o timer, se pone el frame
             if (Configuracion.getReloj().equals("Timer") || Configuracion.getReloj().equals("Sí")){
                 jugarFrame.getRelojFrame().setVisible(true);
@@ -2160,8 +2165,6 @@ public class Programa3 {
             horassave = lineas.get(8);
             minutossave = lineas.get(9);
             segundossave = lineas.get(10);
-            int size = Integer.parseInt(lineas.get(11));
-            Configuracion.setTamaño(size);
             resetTablero(Configuracion.getTamaño()); // se borra el tablero
             establecerTablero(Configuracion.getTamaño()); // se vuelve a establecer el tablero con la partida recuperada
             setButtonPanel();
