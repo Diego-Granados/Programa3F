@@ -3895,7 +3895,7 @@ public class JugarFrame extends javax.swing.JFrame {
                               int horasog = Integer.parseInt(horassave);
                               int minutosog = Integer.parseInt(minutossave);
                               int segundosog = Integer.parseInt(segundossave);
-                              int tiempoog = horasog * 3600 + minutosog *60+ segundosog;
+                              int tiempoog = horasog * 3600 + minutosog *60 + segundosog;
                               tiemponow  = tiempoog - tiemponow; // se obtiene el tiempo que se duró al restar el original con lo que queda.
                         }
                        
@@ -3907,53 +3907,61 @@ public class JugarFrame extends javax.swing.JFrame {
                   // se crea una marca nueva
                   Marca marca = new Marca(NombreTXT.getText(), tiemponow, NivelTXT.getText());
                   int i = 0; // contador para iterar por la lista del nivel
-                  for (; i < Marca.marcas.get(marca.getNivel()).size() ; i++){
-                        if (Marca.marcas.get(marca.getNivel()).get(i).getTiempo() > marca.getTiempo()  && !(Marca.marcas.get(marca.getNivel()).contains(marca))){ // si la marca que se está revisando es mayor a la que se obtuvo en este juego
-                              int index = Marca.marcas.get(marca.getNivel()).indexOf(Marca.marcas.get(marca.getNivel()).get(i)); // se añade el elemento nuevo en esa posición
-                              Marca.marcas.get(marca.getNivel()).add(index, marca);
+                  for (; i < Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).size() ; i++){
+                        if (Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).get(i).getTiempo() > marca.getTiempo() 
+                                && !(Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).contains(marca))){
+                            // si la marca que se está revisando es mayor a la que se obtuvo en este juego
+                              int indexMarca = Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).indexOf(Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).get(i));
+                              // se añade el elemento nuevo en esa posición
+                              Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).add(indexMarca, marca);
+                              break;
                         }
                   }
-                  // si la marca no era menor que alguna en la lista, pero está todavía no está completa o está vacía
-                  if (Marca.marcas.get(marca.getNivel()).isEmpty() ||  (i < 10 && !(Marca.marcas.get(marca.getNivel()).contains(marca)))){
-                        Marca.marcas.get(marca.getNivel()).add(marca); // la añade al final
+                  // si la marca no era menor que alguna en la lista, pero esta todavía no está completa o está vacía
+                  if (Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).isEmpty() ||  (i < 10 && !(Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).contains(marca)))){
+                        Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).add(marca); // la añade al final
                   }
-                  if (Marca.marcas.get(marca.getNivel()).size() > 10) { // si el tamaño de la lista 
-                        Marca.marcas.get(marca.getNivel()).remove(10);
+                  if (Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).size() > 10) { // si el tamaño de la lista 
+                        Marca.marcasMap.get(Configuracion.getTamaño()).get(marca.getNivel()).remove(10);
                   }
                   
                  FileWriter fw; // se crea un file writer para escribir en el archivo
                  try { // se usa un try porque puede darse un error
                        fw = new FileWriter("src\\main\\java\\poo\\programa3\\futoshiki2022top10.dat");
-                       String nivelM = "Fácil";
-                       String str ;
-                       for (int y = 0; y < 3; y++){ // se itera por cada nivel
-                             for (i = 0; i < 10; i++){ // se itera por cada marca del nivel
-                                   for (int x = 0; x < 3; x++){ // se escribe cada parte de la marca: el nombre, el tiempo y el nivel
-                                         if (Marca.marcas.get(nivelM).size() <= i) { // si la lista de marcas es menor a 10, se llena los espacios con falta con N de nulo
-                                               str = "N";
-                                         } else{
-                                               str = switch (x) { // se usa un switch para ver qué se tiene escribir.
-                                                     case 0 -> Marca.marcas.get(nivelM).get(i).getNombre();
-                                                     case 1 -> Integer.toString(Marca.marcas.get(nivelM).get(i).getTiempo());
-                                                     default -> nivelM;
-                                               };
-                                         }
-                                           for (int j = 0; j < str.length(); j++){ // se escriben todos los caracteres presentes en el string que se está escribiendo
-                                                 fw.write(str.charAt(j));
-                                           }
-                                           if (x < 2) { // si el elemento a escribir no es el nivel, se pone un espacio después para separarlos
-                                                 fw.write(" ");
-                                           }
+                       
+                       for (int size = 5; size < 10; size++){
+                            String nivelM = "Fácil";
+                            String str;
+                            for (int y = 0; y < 3; y++){ // se itera por cada nivel
+                                  for (i = 0; i < 10; i++){ // se itera por cada marca del nivel
+                                        for (int x = 0; x < 3; x++){ // se escribe cada parte de la marca: el nombre, el tiempo y el nivel
+                                              if (Marca.marcasMap.get(size).get(nivelM).size() <= i) {
+                                                     // si la lista de marcas es menor a 10, se llena los espacios que faltan con N de nulo
+                                                    str = "N";
+                                              } else{
+                                                    str = switch (x) { // se usa un switch para ver qué se tiene escribir.
+                                                          case 0 -> Marca.marcasMap.get(size).get(nivelM).get(i).getNombre();
+                                                          case 1 -> Integer.toString(Marca.marcasMap.get(size).get(nivelM).get(i).getTiempo());
+                                                          default -> nivelM;
+                                                    };
+                                              }
+                                                // se escribe el string
+                                                fw.write(str);
+
+                                                if (x < 2) { // si el elemento a escribir no es el nivel, se pone un espacio después para separarlos
+                                                      fw.write(" ");
+                                                }
+                                        }
+                                        if (size != 9  || i != 9 || y != 2){ // si el elemento a escribir no es el último del nivel difícil, se pone un cambio de línea
+                                               fw.write("\n");
+                                        }
                                    }
-                                   if (i != 9 || y != 2){ // si el elemento a escribir no es el último del nivel difícil, se pone un cambio de línea
-                                          fw.write("\n");
-                                   }
-                              }
-                             if (y == 0){ // se establece el nivel al siguiente
-                                   nivelM = "Intermedio";
-                             } else {
-                                   nivelM = "Difícil";
-                             }
+                                  if (y == 0){ // se establece el nivel al siguiente
+                                        nivelM = "Intermedio";
+                                  } else {
+                                        nivelM = "Difícil";
+                                  }
+                            }  
                        }
                        fw.close(); // se cierra el archivo
                        
@@ -3977,7 +3985,8 @@ public class JugarFrame extends javax.swing.JFrame {
                         resetTablero(Configuracion.getTamaño());
                         establecerPartida();
                         establecerTablero(Configuracion.getTamaño());
-                        juego = new Juego(partida, NombreTXT.getText(), casillasPorTablero.get(Configuracion.getTamaño())); // se crea el nuevo juego
+                        juego = new Juego(partida, NombreTXT.getText(), casillasPorTablero.get(Configuracion.getTamaño()));
+                        // se crea el nuevo juego
                         if (Configuracion.getReloj().equals("Sí") || Configuracion.getReloj().equals("Timer")){
                               stopwatch.start();
                         }
