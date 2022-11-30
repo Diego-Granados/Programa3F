@@ -96,9 +96,9 @@ public class Programa3 {
     private String horassave; // se usa para salvar el tiempo del timer antes de empezar el juego.
     private String minutossave;
     private String segundossave;
-    private String nivel; // almacena el nivel del juego
-    private int nivelCont; // este contador se usa para indicar por cuál nivel se va en la opción de multinivel
-    private int horasMulti; // este contador se usa para llevar cuenta de cuánto tiempo ha pasado en ese nivel si se juega en multinivel
+    private String nivel = "Fácil";
+    private int nivelCont;
+    private int horasMulti;
     private int minutosMulti;
     private int  segundosMulti;
     /**
@@ -424,6 +424,11 @@ public class Programa3 {
     }
       
     private void fill5(){
+        nonCasillas5.clear();
+        nonLabelsHorizontales5.clear();
+        labelsHorizontales5.clear();
+        nonLabelsVerticales5.clear();
+        labelsVerticales5.clear();
         casillas5 = new javax.swing.JButton[5][5];
         nonCasillas5.add(jugarFrame.getBtn00());
         nonCasillas5.add(jugarFrame.getBtn01());
@@ -507,6 +512,7 @@ public class Programa3 {
         casillas5[4][2] = jugarFrame.getBtn64();
         casillas5[4][3] = jugarFrame.getBtn65();
         casillas5[4][4] = jugarFrame.getBtn66();
+        
         
         nonLabelsHorizontales5.add(jugarFrame.getOp001());
         nonLabelsHorizontales5.add(jugarFrame.getOp012());
@@ -657,6 +663,11 @@ public class Programa3 {
     }
     
     private void fill6(){
+        nonCasillas6.clear();
+        nonLabelsHorizontales6.clear();
+        labelsHorizontales6.clear();
+        nonLabelsVerticales6.clear();
+        labelsVerticales6.clear();
         casillas6 = new javax.swing.JButton[6][6];
         nonCasillas6.add(jugarFrame.getBtn00());
         nonCasillas6.add(jugarFrame.getBtn01());
@@ -889,6 +900,11 @@ public class Programa3 {
     }
 
     private void fill7(){
+        nonCasillas7.clear();
+        nonLabelsHorizontales7.clear();
+        labelsHorizontales7.clear();
+        nonLabelsVerticales7.clear();
+        labelsVerticales7.clear();
         casillas7 = new javax.swing.JButton[7][7];
         nonCasillas7.add(jugarFrame.getBtn00());
         nonCasillas7.add(jugarFrame.getBtn01());
@@ -1123,6 +1139,11 @@ public class Programa3 {
         
     
     private void fill8(){
+        nonCasillas8.clear();
+        nonLabelsHorizontales8.clear();
+        labelsHorizontales8.clear();
+        nonLabelsVerticales8.clear();
+        labelsVerticales8.clear();
         casillas8 = new javax.swing.JButton[8][8];
         nonCasillas8.add(jugarFrame.getBtn00());
         nonCasillas8.add(jugarFrame.getBtn01());
@@ -1355,6 +1376,11 @@ public class Programa3 {
     }
     
     private void fill9(){
+        nonCasillas9.clear();
+        nonLabelsHorizontales9.clear();
+        labelsHorizontales9.clear();
+        nonLabelsVerticales9.clear();
+        labelsVerticales9.clear();
         casillas9 = new javax.swing.JButton[9][9];
         
         casillas9[0][0] = jugarFrame.getBtn00();
@@ -1596,8 +1622,11 @@ public class Programa3 {
             }
      }
      
-     // Esta función establece el 
-     public void setButtonPanel(){
+    public void setButtonPanel(){
+           jugarFrame.getBtn9().setVisible(true);
+           jugarFrame.getBtn8().setVisible(true);
+           jugarFrame.getBtn7().setVisible(true);
+           jugarFrame.getBtn6().setVisible(true);
            if (Configuracion.getTamaño() != 9) {
                   jugarFrame.getBtn9().setVisible(false);
             }
@@ -1676,25 +1705,38 @@ public class Programa3 {
                         }
                         jugarFrame.getNivelTXT().setText(nivel);
                         nivelCont++;
-                        horasMulti = Integer.valueOf(jugarFrame.getHorasTXT().getText());
-                        minutosMulti = Integer.valueOf(jugarFrame.getMinutosTXT().getText());
-                        segundosMulti = Integer.valueOf(jugarFrame.getSegundosTXT().getText());
-                        resetTablero(Configuracion.getTamaño());
+                        horasMulti = Integer.parseInt(jugarFrame.getHorasTXT().getText());
+                        minutosMulti = Integer.parseInt(jugarFrame.getMinutosTXT().getText());
+                        segundosMulti = Integer.parseInt(jugarFrame.getSegundosTXT().getText());
                         establecerPartida();
-                        establecerTablero(Configuracion.getTamaño());
                         juego = new Juego(jugarFrame.getNombreTXT().getText(), casillasPorTablero.get(Configuracion.getTamaño())); // se crea el nuevo juego
                         if (Configuracion.getReloj().equals("Sí") || Configuracion.getReloj().equals("Timer")){
                               stopwatch.start();
                         }
                         return;
                   }
+                  nivel = "Difícil";
+                  Configuracion.setNivel("Difícil");
+                  jugarFrame.getNivelTXT().setText(nivel);
             }
-            started = false; // detiene el juego
-            jugarFrame.getGuardarJuego().setEnabled(false); // desactiva todos los botones
+            if (Configuracion.getReloj().equals("Timer")){
+                jugarFrame.getHorasTXT().setText(horassave);
+                jugarFrame.getHorasTXT().setEditable(true);
+                jugarFrame.getMinutosTXT().setText(minutossave);
+                jugarFrame.getMinutosTXT().setEditable(true);
+                jugarFrame.getSegundosTXT().setText(segundossave);
+                jugarFrame.getSegundosTXT().setEditable(true);
+            }
+            establecerPartida();
+            jugarFrame.getIniciarJuego().setEnabled(true);
+            jugarFrame.getNombreTXT().setEditable(true);
+            jugarFrame.getGuardarJuego().setEnabled(false);
             jugarFrame.getRehacerJugada().setEnabled(false);
             jugarFrame.getBorrarJugada().setEnabled(false);
             jugarFrame.getTerminarJuego().setEnabled(false);
             jugarFrame.getBorrarJuego().setEnabled(false);
+            jugarFrame.getPistaButton().setEnabled(false);
+            started = false;
       } 
     /**
      * Esta función inicia el timer
@@ -1702,6 +1744,7 @@ public class Programa3 {
      */
       public void startTimer(Component window){
         ActionListener action = new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent e){
                 if(count == 0){ // si el timer llega a 0, debe pedir si se quiere continuar con el juego
                         stopwatch.stop(); // se detiene el stopwatch
@@ -1713,7 +1756,7 @@ public class Programa3 {
                               jugarFrame.getHorasTXT().setText(horassave);
                               jugarFrame.getMinutosTXT().setText(minutossave);
                               jugarFrame.getSegundosTXT().setText(segundossave);
-                              count = Integer.valueOf(jugarFrame.getHorasTXT().getText()) * 3600 + Integer.valueOf(jugarFrame.getMinutosTXT().getText()) * 60 + Integer.valueOf(jugarFrame.getSegundosTXT().getText());
+                              count = Integer.parseInt(jugarFrame.getHorasTXT().getText()) * 3600 + Integer.parseInt(jugarFrame.getMinutosTXT().getText()) * 60 + Integer.parseInt(jugarFrame.getSegundosTXT().getText());
                               startClock(window);
                         } else{
                               started = false;
@@ -1829,7 +1872,7 @@ public class Programa3 {
             jugarFrame.getTerminarJuego().setEnabled(false);
             jugarFrame.getBorrarJuego().setEnabled(false);
             jugarFrame.getPistaButton().setEnabled(false);
-            
+            started = false;
       }
       
       // Esta función obtiene el tamaño seleccionado en la configuración
@@ -1889,6 +1932,7 @@ public class Programa3 {
             configGUI.getMinutosField().setText(Reloj.getMinutos());
             configGUI.getSegundosField().setText(Reloj.getSegundos());
         }
+        nivelConfig = Configuracion.getNivel();
         nivel = Configuracion.getNivel();
         reloj = Configuracion.getReloj();
         lado = Configuracion.getLado();
@@ -1929,7 +1973,8 @@ public class Programa3 {
                         count = 0;
                         startClock(jugarFrame);
                   }
-                  started = true; // se empieza el juego
+                  started = true; // se empieza 
+                  nivelCont = 1;
                   juego = new Juego(jugarFrame.getNombreTXT().getText(), 
                           casillasPorTablero.get(Configuracion.getTamaño())); // se crea el nuevo juego
 
@@ -2066,9 +2111,13 @@ public class Programa3 {
         if (respuesta == JOptionPane.YES_OPTION){
              jugarFrame.getIniciarJuego().setEnabled(true); // se reactiva el botón de iniciar juego
              jugarFrame.getTerminarJuego().setEnabled(false); // se desactiva este botón
-            establecerPartida(); // se establece una nueva partida
              jugarFrame.getNombreTXT().setEditable(true);
             started = false;
+            if (Configuracion.getNivel().equals("Multinivel")){
+                nivel = "Fácil";
+                nivelCont = 1;
+                jugarFrame.getNivelTXT().setText(nivel);
+            }
             if (Configuracion.getReloj().equals("Timer")) { // si había un timer o reloj, se detiene y reinicia el contador
                   stopwatch.stop();
                    jugarFrame.getHorasTXT().setEditable(true);
@@ -2082,6 +2131,7 @@ public class Programa3 {
                   stopwatch.stop();
                   count = 0;
             }
+             establecerPartida(); // se establece una nueva partida
             // se desactivan todos los otros botones
              jugarFrame.getGuardarJuego().setEnabled(false);
              jugarFrame.getRehacerJugada().setEnabled(false);
@@ -2106,7 +2156,11 @@ public class Programa3 {
             public void actionPerformed(ActionEvent evt) {
                   try{
             FileWriter save = new FileWriter("futoshiki2022juegoactual.dat"); // se escribe en el archivo
-            save.write(Configuracion.getNivel() + "\n"); // se salva el nivel
+            save.write(Configuracion.getNivel()); // se salva el nivel
+            if (Configuracion.getNivel().equals("Multinivel")){
+                save.write(nivelCont + "");
+            }
+            save.write('\n');
             save.write(index + "\n"); // se salva el índice de la partida para volverla a desplegar luego
             save.write(Configuracion.getReloj() + "\n"); // se salva si hay reloj o no
             save.write(jugarFrame.getHorasTXT().getText() + "\n"); // se salvan las horas, minutos y segundos
@@ -2161,11 +2215,22 @@ public class Programa3 {
         }
         try{ // se abre el archivo
             List<String> lineas = Files.readAllLines(Paths.get("futoshiki2022juegoactual.dat"));
-            Configuracion.setNivel(lineas.get(0)); // se establece el nivel
-            jugarFrame.getNivelTXT().setText(lineas.get(0));
+            if (lineas.get(0).length() > 10){
+                nivelCont = Character.getNumericValue(lineas.get(0).charAt(lineas.get(0).length() - 1));
+                switch(nivelCont){
+                    case 1 -> nivel = "Fácil";
+                    case 2 -> nivel = "Intermedio";
+                    case 3 -> nivel = "Difícil";
+                }
+                Configuracion.setNivel(lineas.get(0).substring(0,lineas.get(0).length() - 1));
+            } else {
+                Configuracion.setNivel(lineas.get(0));
+                nivel = lineas.get(0);
+            }
+            jugarFrame.getNivelTXT().setText(nivel);
             int size = Integer.parseInt(lineas.get(11));
             Configuracion.setTamaño(size);
-            partida = Partida.getPartidasPorNivel(Configuracion.getTamaño()).get(lineas.get(0)).get(Integer.parseInt(lineas.get(1))); // se obtiene la partida
+            partida = Partida.getPartidasPorNivel(Configuracion.getTamaño()).get(nivel).get(Integer.parseInt(lineas.get(1))); // se obtiene la partida
             
             Configuracion.setReloj(lineas.get(2)); // se obtiene el reloj
             reloj = lineas.get(2);
