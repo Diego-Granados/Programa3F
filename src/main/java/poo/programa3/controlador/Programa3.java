@@ -31,19 +31,19 @@ import javax.swing.Timer;
  */
 public class Programa3 {
       
-      private String nivelConfig = "Fácil";
-    private String reloj = "Sí";
-    private boolean lado = true;
-    private HashMap<String, javax.swing.JRadioButton> niveles = new HashMap<>();
+      private String nivelConfig = "Fácil"; // se usa para salvar el nivel en la configuración
+    private String reloj = "Sí"; // Almacena el reloj en la configuración
+    private boolean lado = true; // almacena la posición del panel de botones
+    private HashMap<String, javax.swing.JRadioButton> niveles = new HashMap<>(); // se usan para encontrar el botón con base en el  string
     private HashMap<String, javax.swing.JRadioButton> relojes = new HashMap<>();
     private HashMap<Boolean, javax.swing.JRadioButton> lados = new HashMap<>();
     private HashMap<Integer, javax.swing.JRadioButton> tamaños = new HashMap<>();
     
-      private JugarFrame jugarFrame = new JugarFrame();
-      private ConfiguracionGUI configGUI = new ConfiguracionGUI();
-      private Posibles posiblesFrame = new Posibles();
-      private AcercaDe acercaFrame = new AcercaDe();
-      private Top10Frame top10 = new Top10Frame();
+      private JugarFrame jugarFrame = new JugarFrame(); // este frame se usa para la vista para jugar Futoshiki
+      private ConfiguracionGUI configGUI = new ConfiguracionGUI(); // este frame se usa para la configuración
+      private Posibles posiblesFrame = new Posibles(); // este frame se usa para desplegar las jugadas posibles.
+      private AcercaDe acercaFrame = new AcercaDe(); // Este frame se usa para desplegar el acerca de
+      private Top10Frame top10 = new Top10Frame(); // este frame se usa para desplegar el top 10
       
       private boolean started = false; // indica si ya empezó el juego.
     boolean win = false; // indica si ya se ganó el juego
@@ -85,30 +85,31 @@ public class Programa3 {
     private ArrayList<javax.swing.JLabel> nonLabelsVerticales9 = new ArrayList<>(); 
     private ArrayList<javax.swing.JButton> nonCasillas9 = new ArrayList<>(); // contienen todos los botones que no son del tablero.
     
-    private HashMap<Integer, javax.swing.JButton [][]> casillasPorTablero = new HashMap<>();
-    private HashMap<Integer, ArrayList<javax.swing.JButton>> nonCasillasPorTablero = new HashMap<>();
-    private HashMap<Integer, ArrayList<javax.swing.JLabel>> labelsHorizontalesPorTablero = new HashMap<>();
-    private HashMap<Integer, ArrayList<javax.swing.JLabel>> nonLabelsHorizontalesPorTablero = new HashMap<>();
-    private HashMap<Integer, ArrayList<javax.swing.JLabel>> labelsVerticalesPorTablero = new HashMap<>();
-    private HashMap<Integer, ArrayList<javax.swing.JLabel>> nonLabelsVerticalesPorTablero = new HashMap<>();
+    private HashMap<Integer, javax.swing.JButton [][]> casillasPorTablero = new HashMap<>(); // Este se usa para poner las casillas por tablero
+    private HashMap<Integer, ArrayList<javax.swing.JButton>> nonCasillasPorTablero = new HashMap<>(); // Se almacenan las casillas que no se van a desplegar
+    private HashMap<Integer, ArrayList<javax.swing.JLabel>> labelsHorizontalesPorTablero = new HashMap<>(); //  Se almacenan los labels horizontales
+    private HashMap<Integer, ArrayList<javax.swing.JLabel>> nonLabelsHorizontalesPorTablero = new HashMap<>(); // se almacenan los labels horizontales que no se van a poner.
+    private HashMap<Integer, ArrayList<javax.swing.JLabel>> labelsVerticalesPorTablero = new HashMap<>(); // Se almacenan los labels verticales del tablero
+    private HashMap<Integer, ArrayList<javax.swing.JLabel>> nonLabelsVerticalesPorTablero = new HashMap<>(); // se almacenan los labels verticales que no se desplegarán
     
     private int index; // indice de la partida.
     private String horassave; // se usa para salvar el tiempo del timer antes de empezar el juego.
     private String minutossave;
     private String segundossave;
-    private String nivel;
-    private int nivelCont;
-    private int horasMulti;
+    private String nivel; // almacena el nivel del juego
+    private int nivelCont; // este contador se usa para indicar por cuál nivel se va en la opción de multinivel
+    private int horasMulti; // este contador se usa para llevar cuenta de cuánto tiempo ha pasado en ese nivel si se juega en multinivel
     private int minutosMulti;
     private int  segundosMulti;
     /**
      * Objeto para controlar el tiempo
      */
-    public static Timer stopwatch;
+    public static Timer stopwatch; // es el contador
 
     int count = 0; // se usa para el contador del timer
     int delay = 1000; // este delay se usa para que el timer cambie cada segundo.
       
+    // Esta función calcula la fila correcta, ya que cada tamaño tiene diferentes casillas
    private int calcularFila(int  pFila){
          if (Configuracion.getTamaño() == 5){
                pFila -= 2;
@@ -127,16 +128,17 @@ public class Programa3 {
          return pColumna;
    }
    
+   // Está función pone el número en el tablero. Recibe la fila y la columna
    public void putNumber(int fila, int columna){
-            if (!started) {
+            if (!started) { // si el juego no ha empezado, no hace nada
                   return;             
             }
-            fila = calcularFila(fila);
+            fila = calcularFila(fila); // calcula la fila correcta
             columna = calcularColumna(columna);
-            String numero = getSelectedButtonText();
-            javax.swing.JButton [][] casillas = juego.getCasillas();
-            for (javax.swing.JButton buttonIter : casillas[fila]){
-                  if (buttonIter.getText().equals(numero)){
+            String numero = getSelectedButtonText(); // obtiene el número a poner
+            javax.swing.JButton [][] casillas = juego.getCasillas(); // obtiene el tablero
+            for (javax.swing.JButton buttonIter : casillas[fila]){ // Valida la jugada
+                  if (buttonIter.getText().equals(numero)){ // si el número ya está en la fila, no se puede poner
                         if ("Sí".equals(Configuracion.getReloj()) || "Timer".equals(Configuracion.getReloj())){
                               stopwatch.stop();
                         }
@@ -151,8 +153,8 @@ public class Programa3 {
                         return;
                  }
             }
-            for (int i = 0; i < Configuracion.getTamaño(); i++){
-                  if (casillas[i][columna].getText().equals(numero)){
+            for (int i = 0; i < Configuracion.getTamaño(); i++){ // revisa las columnas
+                  if (casillas[i][columna].getText().equals(numero)){ // si el número ya está en la columna, no se puede poner
                         casillas[i][columna].setBackground(Color.red);
                         if ("Sí".equals(Configuracion.getReloj()) || "Timer".equals(Configuracion.getReloj())){
                               stopwatch.stop();
@@ -166,8 +168,8 @@ public class Programa3 {
                         return;
                   }
             }
-            for (Operacion constante : partida.getConstantes()){
-                  if (constante.getIndiceFila() == fila && constante.getIndiceColumna() == columna){
+            for (Operacion constante : partida.getConstantes()){ // Revisa todas las operaciones del juego
+                  if (constante.getIndiceFila() == fila && constante.getIndiceColumna() == columna){ // si hay un dígito fijo en esa posición
                         casillas[fila][columna].setBackground(Color.red);
                         if ("Sí".equals(Configuracion.getReloj()) || "Timer".equals(Configuracion.getReloj())){
                               stopwatch.stop();
@@ -181,22 +183,22 @@ public class Programa3 {
                         return;
                   }
             }
-            int i = 0;
+            int i = 0; // se recorren las operaciones
             OUTER:
             for (; i < partida.getOperaciones().size(); i ++) {
                   int colCompare;
                   int colCompare2;
-                  switch(partida.getOperaciones().get(i).getTipo()){
-                        case 'a':
-                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
-                                    try {
+                  switch(partida.getOperaciones().get(i).getTipo()){ // se obtiene la operación
+                        case 'a':  //  caso de mayor horizontal
+                              if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){ // revisa si hay una operación en esa casilla
+                                    try { // revisa si hay números en esas casillas
                                           colCompare = Integer.valueOf(numero);
                                           colCompare2 = Integer.valueOf(casillas[fila][columna+1].getText());
                                     }
                                     catch (Exception e){
                                           continue;
                                     }
-                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna - 1 && partida.getOperaciones().get(i).getIndiceFila() == fila) {
+                              } else if (partida.getOperaciones().get(i).getIndiceColumna() == columna - 1 && partida.getOperaciones().get(i).getIndiceFila() == fila) { // revisa si hay una operación en la casilla anterior.
                                     try {
                                           colCompare = Integer.valueOf(casillas[fila][columna-1].getText());
                                           colCompare2 = Integer.valueOf(numero);
@@ -207,6 +209,7 @@ public class Programa3 {
                               } else {
                                     continue;
                               }
+                              // si no se cumple la restricción
                               if (!(colCompare > colCompare2)) {
                                     casillas[fila][columna].setBackground(Color.red);
                                     if ("Sí".equals(Configuracion.getReloj()) || "Timer".equals(Configuracion.getReloj())){
@@ -222,7 +225,7 @@ public class Programa3 {
                               } else {
                                     continue;
                               }
-                     case 'b':
+                     case 'b': // hace el mismo procedimiento para la operación de menor
                               if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
                                     try {
                                           colCompare = Integer.valueOf(numero);
@@ -257,7 +260,7 @@ public class Programa3 {
                               } else {
                                     continue;
                               }
-                    case 'y':
+                    case 'y': // hace la misma operación para la operación de mayor 
                               if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
                                     try {
                                           colCompare = Integer.valueOf(numero);
@@ -292,7 +295,7 @@ public class Programa3 {
                               } else {
                                     continue;
                               }
-                      case 'z':
+                      case 'z': // mismo procedimiento, pero con menor
                               if (partida.getOperaciones().get(i).getIndiceColumna() == columna && partida.getOperaciones().get(i).getIndiceFila() == fila){
                                     try {
                                           colCompare = Integer.valueOf(numero);
@@ -329,8 +332,8 @@ public class Programa3 {
                               }                       
                   }
             }
-            win = juego.añadirNumero(numero, fila, columna);
-            if (win){
+            win = juego.añadirNumero(numero, fila, columna); // esta función añade el número al tablero y retorna si se un booleano que indica ganó o no
+            if (win){ // si se ganó, se da un mensaje y se registra la victoria
                   JOptionPane.showMessageDialog(jugarFrame, "JUEGO TERMINADO CON ÉXITO");
                   RegisterWin();
             }
@@ -1593,6 +1596,7 @@ public class Programa3 {
             }
      }
      
+     // Esta función establece el 
      public void setButtonPanel(){
            if (Configuracion.getTamaño() != 9) {
                   jugarFrame.getBtn9().setVisible(false);
@@ -1608,7 +1612,7 @@ public class Programa3 {
             }
      }
      
-      private Menu menu = new Menu();
+      private Menu menu = new Menu(); // Se crea la ventana del menú
       /**
      * Método que inicia el reloj
      * @param window
@@ -1731,11 +1735,12 @@ public class Programa3 {
         stopwatch.setInitialDelay(0);
         stopwatch.start();
     }
+      // esta función obtiene el texto del botón
       public String getSelectedButtonText() {
         for (Enumeration<AbstractButton> buttons = jugarFrame.getOpciones().getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 
-            if (button.isSelected()) {
+            if (button.isSelected()) { // Se obtiene el texto
                 return button.getText();
             }
         }
@@ -1743,8 +1748,9 @@ public class Programa3 {
         return null;
     }
       
+      // esta función inicializa la pantalla del juego
       public void jugar(){
-            fill5();
+            fill5(); // llena las casillas de cada tamaño
             fill6();
             fill7();
             fill8();
@@ -1786,27 +1792,27 @@ public class Programa3 {
             nonLabelsVerticalesPorTablero.put(8, nonLabelsVerticales8);
             nonLabelsVerticalesPorTablero.put(9, nonLabelsVerticales9);
             
-            if (Configuracion.getNivel().equals("Multinivel")){
+            if (Configuracion.getNivel().equals("Multinivel")){ // si el nivel es multinivel, empieza en fácil
                   nivel = "Fácil";
             } else {
-                  nivel = Configuracion.getNivel();
+                  nivel = Configuracion.getNivel(); // si no, el nivel es el que se estableció en la configuración
             }
-            nivelCont = 1;
+            nivelCont = 1; // se usa para el multinivel, 1 indica que está en el nivel fácil
             jugarFrame.getNivelTXT().setText(nivel); // se establece el nivel
             jugarFrame.setLayout(null); // esto se usa para poder mover el panel de botones.
-            moveButtonPanel();
-            setButtonPanel();
+            moveButtonPanel(); // se mueve el panel a la posición
+            setButtonPanel(); // se pone en el panel la cantidad de botones respectivos para el tamaño 
             
             
-            count = 0;
+            count = 0; // se el contador del reloj empieza en 0
             jugarFrame.getHorasTXT().setText("0");
             jugarFrame.getMinutosTXT().setText("0");
             jugarFrame.getSegundosTXT().setText("0");
             if (Configuracion.getReloj().equals("No")){ //  si no hay un reloj, se quita de la pantalla
-                  jugarFrame.getRelojFrame().setVisible(false);
+                  jugarFrame.getRelojFrame().setVisible(false);// se quita el frame
              } else if (Configuracion.getReloj().equals("Timer")) { // si hay un timer, se deja editar el tiempo
-                  count = count = Reloj.getHorasInt() * 3600 + Reloj.getMinutosInt() * 60 + Reloj.getSegundosInt();
-                  jugarFrame.getHorasTXT().setEditable(true);
+                  count = count = Reloj.getHorasInt() * 3600 + Reloj.getMinutosInt() * 60 + Reloj.getSegundosInt(); // si es el temporizador, el count se pone en el máximo de tiempo
+                  jugarFrame.getHorasTXT().setEditable(true); // se deja editar el tiempo
                   jugarFrame.getMinutosTXT().setEditable(true);
                   jugarFrame.getSegundosTXT().setEditable(true);
                   jugarFrame.getHorasTXT().setText(Reloj.getHoras()); // se establecen los tiempos de la configuración
@@ -1814,8 +1820,8 @@ public class Programa3 {
                   jugarFrame.getSegundosTXT().setText(Reloj.getSegundos());
             }
             
-            establecerPartida();
-            jugarFrame.getIniciarJuego().setEnabled(true);
+            establecerPartida(); // se establece el tiempo
+            jugarFrame.getIniciarJuego().setEnabled(true); // se bloquean y activan los botones
             jugarFrame.getNombreTXT().setEditable(true);
             jugarFrame.getGuardarJuego().setEnabled(false);
             jugarFrame.getRehacerJugada().setEnabled(false);
@@ -1826,21 +1832,22 @@ public class Programa3 {
             
       }
       
-      
+      // Esta función obtiene el tamaño seleccionado en la configuración
       private String getSizeButton() {
         for (Enumeration<AbstractButton> buttons = configGUI.obtainSizeButton().getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 
             if (button.isSelected()) {
-                return button.getText();
+                return button.getText();// obtiene el texto del botón
             }
         }
 
         return null;
     }
       
+      // esta función es como el constructor de la GUI de la configuración
       public void configurar(){
-            niveles.put("Fácil", configGUI.getFacilButton());
+            niveles.put("Fácil", configGUI.getFacilButton()); //  se meten los niveles al hashmap
         niveles.put("Intermedio", configGUI.getIntermedioButton());
         niveles.put("Difícil", configGUI.getDificilButton());
         relojes.put("Sí", configGUI.getSiButton());
@@ -1853,15 +1860,17 @@ public class Programa3 {
         tamaños.put(7, configGUI.getSieteButton());
         tamaños.put(8, configGUI.getOchoButton());
         tamaños.put(9, configGUI.getNueveButton());
-        if (!Configuracion.getNivel().equals("Multinivel")){
+        if (!Configuracion.getNivel().equals("Multinivel")){ //  el nivel que se tiene escogido no es multinivel
               niveles.get(Configuracion.getNivel()).setSelected(true); // obtenemos el objeto del boton respectivo al nivel y lo activamos.
-        } else {
+        } else { // si es, se pone ese botón como seleccionado
               configGUI.getMultinivelButton().setSelected(true);
         }
         
+        // se selecciona el reloj, lado y tamaño escogidos previamente
         relojes.get(Configuracion.getReloj()).setSelected(true); // obtenemos el objeto del boton respectivo al reloj y lo activamos.
         lados.get(Configuracion.getLado()).setSelected(true); // obtenemos el objeto del boton respectivo al lado y lo activamos.
         tamaños.get(Configuracion.getTamaño()).setSelected(true);
+        
         if (Configuracion.getReloj().equals("No")){
             configGUI.getRelojFrame().setVisible(false);
         } else if (Configuracion.getReloj().equals("Sí")){
@@ -1917,14 +1926,14 @@ public class Programa3 {
                         jugarFrame.getHorasTXT().setEditable(false);
                         jugarFrame.getMinutosTXT().setEditable(false);
                         jugarFrame.getSegundosTXT().setEditable(false);
+                        count = 0;
                         startClock(jugarFrame);
                   }
-                  started = true; // se empieza 
+                  started = true; // se empieza el juego
                   juego = new Juego(jugarFrame.getNombreTXT().getText(), 
                           casillasPorTablero.get(Configuracion.getTamaño())); // se crea el nuevo juego
 
                   jugarFrame.getNombreTXT().setEditable(false);
-                  // si hay timer
 
                   jugarFrame.getBtn1().setSelected(true); // se selecciona el 1 como número para poner predeterminado 
                   jugarFrame.getIniciarJuego().setEnabled(false); // se desactiva este botón y se activan los demás
@@ -1939,29 +1948,32 @@ public class Programa3 {
             }
       }
               
+      // está funciión contiene todos los action listeners de todos los botones de todas las vistas
       public void init(){
             
             menu.setVisible(true);
             menu.addJugarActionListener(new ActionListener() {
+                  
+             // Esta función abre la ventana de juegos
             @Override
             public void actionPerformed(ActionEvent evt) {
                   menu.dispose();
-                // jugarFrame = new JugarFrame();
                 jugarFrame.setVisible(true);
                 jugar();
             }
             });
             
+            // esta función abre la ventana de configuración
             menu.addConfigurarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                   menu.dispose();
-               // configGUI = new ConfiguracionGUI();
             configGUI.setVisible(true);
             configurar();
             }
             });
             
+            // esta función abre el manual de usuario
             menu.addAyudaActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -1977,6 +1989,7 @@ public class Programa3 {
             }
             });
             
+            // esta función abre la ventana del acerca de
             menu.addAcercaActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -1985,6 +1998,7 @@ public class Programa3 {
             }
             });
             
+            // esta función termina el programa
             menu.addSalirActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -1994,6 +2008,7 @@ public class Programa3 {
             
             });
             
+            // esta función inicia el juego
             jugarFrame.addIniciarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2001,6 +2016,7 @@ public class Programa3 {
             }
             });
             
+            // esta función borra el juego actual
             jugarFrame.addBorrarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2032,11 +2048,13 @@ public class Programa3 {
             }
             });
             
+            // esta función termina el juego
             jugarFrame.addTerminarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                   Object[] options = {"Sí",
                             "No"};
+                  // se pide la confirmación
         int respuesta = JOptionPane.showOptionDialog(jugarFrame,
             "¿Está seguro de terminar el juego (Sí o No)?",
             "Terminar juego",
@@ -2074,6 +2092,7 @@ public class Programa3 {
             }
             });
             
+            // Esta función abre la ventana del top 10
             jugarFrame.addTop10ActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2081,6 +2100,7 @@ public class Programa3 {
             }
             });
             
+            // esta función guarda el juego en el archivo
             jugarFrame.addGuardarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2210,6 +2230,7 @@ public class Programa3 {
             }
             });
             
+            // Esta función abre la ventana de posibles movidas
             jugarFrame.addPistaActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2217,6 +2238,7 @@ public class Programa3 {
             }
             });
             
+            // esta función borra la última jugada
             jugarFrame.addUndoActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2228,6 +2250,8 @@ public class Programa3 {
             }
             });
             
+            
+            // esta función vuelve a poner una jugada
             jugarFrame.addRedoActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2238,6 +2262,8 @@ public class Programa3 {
                   }
             }
             });      
+            
+            // Esta función cerra la ventana
             jugarFrame.addCerrarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2258,6 +2284,7 @@ public class Programa3 {
             }
             });     
             
+            // estas funciones ponen un número en el tablero dependiendo de su posición
             jugarFrame.addBtn00ActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2818,6 +2845,7 @@ public class Programa3 {
             }
             });
             
+            
             jugarFrame.addBtn88ActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2825,6 +2853,7 @@ public class Programa3 {
             }
             });
             
+            // esta función cierra la pestaña del acerca de
             acercaFrame.addCerrarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2833,6 +2862,7 @@ public class Programa3 {
             }
             });
             
+            // esta función cierra la función del top 10
             top10.addCerrarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2840,6 +2870,7 @@ public class Programa3 {
             }
             });
             
+            // Esta función cambia los valores de las listas del top 10 con base en el tamaño
             top10.addClickActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2849,6 +2880,7 @@ public class Programa3 {
             }
             });
             
+            // esta función pone el nivel en fácil
             configGUI.addFacilActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2856,6 +2888,7 @@ public class Programa3 {
             }
             });
             
+            // esta función pone el nivel en intermedio
             configGUI.addIntermedioActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2863,6 +2896,7 @@ public class Programa3 {
             }
             });
             
+            // esta función pone el nivel en difícil
             configGUI.addDificilActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2870,6 +2904,7 @@ public class Programa3 {
             }
             });
             
+            // esta función pone el reloj en sí y habilita el frame 
             configGUI.addSiActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2884,6 +2919,7 @@ public class Programa3 {
             }
             });
             
+            // esta función pone el reloj en timer y habilita el frame
             configGUI.addTimerActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2895,6 +2931,7 @@ public class Programa3 {
             }
             });
             
+            // esta función pone el reloj en no y deshabilita el frame
             configGUI.addNoActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2903,6 +2940,7 @@ public class Programa3 {
             }
             });
             
+            // esta función pone que el lado es a la izquierda
             configGUI.addIzquierdaActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2910,6 +2948,7 @@ public class Programa3 {
             }
             });
             
+            // esta función pone que el lado es a la derecha
             configGUI.addDerechaActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2917,6 +2956,7 @@ public class Programa3 {
             }
             });
             
+            // Esta función salva la configuración
             configGUI.addSaveActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2982,6 +3022,7 @@ public class Programa3 {
             }
             });
             
+            // esta función cierra la configuración sin salvar nada
             configGUI.addCancelActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2990,6 +3031,7 @@ public class Programa3 {
             }
             });
             
+            // esta función establece el nivel en multinivel
             configGUI.addMultinivelActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -2997,15 +3039,16 @@ public class Programa3 {
             }
             });
             
+            // Esta función encuentra las posibles jugadas
             posiblesFrame.addFindActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                  int fila = 0;
-            int columna = 0;
-            try {
-                  fila = Integer.valueOf(posiblesFrame.getFilaTXT().getText());
-                  columna = Integer.valueOf(posiblesFrame.getColumnaTXT().getText());
-                  if (fila > Configuracion.getTamaño() || fila < 1 || columna > Configuracion.getTamaño() || columna < 1) {
+                  int fila = 0; // se almacena la fila y columna que se insertó
+                  int columna = 0;
+            try { // se validan si son números
+                  fila = Integer.parseInt(posiblesFrame.getFilaTXT().getText());
+                  columna = Integer.parseInt(posiblesFrame.getColumnaTXT().getText());
+                  if (fila > Configuracion.getTamaño() || fila < 1 || columna > Configuracion.getTamaño() || columna < 1) { // Si la fila y columna son mayores o menores que los límites 
                         throw new ArithmeticException("message");
                   }
             }
@@ -3014,14 +3057,13 @@ public class Programa3 {
                 "Error", JOptionPane.ERROR_MESSAGE);
                   return;
             }
-            fila -= 1;
+            fila -= 1; // se le resta un uno a la fila y columna para que encajen con los índices correctos
             columna -= 1;
             
-            // Check columna
-
+            // se obtienen las casillas
             javax.swing.JButton [][] casillas = juego.getCasillas();
-            ArrayList<Integer> posibles = new ArrayList<>();
-            for (int i = 0; i < Configuracion.getTamaño(); i++){
+            ArrayList<Integer> posibles = new ArrayList<>(); // contiene los números que ya están puestos
+            for (int i = 0; i < Configuracion.getTamaño(); i++){ // se revisan las fila y columna para ver cuáles números ya están puestos
                   if (!casillas[fila][i].getText().equals("")){
                         posibles.add(Integer.valueOf(casillas[fila][i].getText()));
                   }
@@ -3032,11 +3074,11 @@ public class Programa3 {
             String texto = "Las jugadas posibles son: ";
             OUTER:
             for (int j = 1; j <= Configuracion.getTamaño(); j++){
-                  for (Integer num : posibles){
+                  for (Integer num : posibles){ // se recorren los números puestos y si el número que estoy iterando es igual, se continúa
                         if (j == num){
                               continue OUTER; 
                         }
-                  }
+                  } // si se podría poner, se valida si cumple con las operaciones
                   int i = 0;
                   for (; i < partida.getOperaciones().size(); i ++) {
                   int colCompare;
@@ -3143,15 +3185,15 @@ public class Programa3 {
                                     continue;
                               }                       
                   }
-            }
-                  texto += " " + j;
+            } // si no hubo ningún problema
+                  texto += " " + j; // se añade al texto a desplegar
             }
             
-            JOptionPane.showMessageDialog(posiblesFrame, texto); 
+            JOptionPane.showMessageDialog(posiblesFrame, texto);  // se despliega el texto
             posiblesFrame.dispose();
             }
             });
-            
+            // esta función cierra la ventana de posibles jugadas
             posiblesFrame.addCerrarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
